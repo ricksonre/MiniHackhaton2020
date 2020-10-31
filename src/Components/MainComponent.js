@@ -3,7 +3,6 @@ import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
 import background from "../back.png";
-import MainPage from './MainPage';
 
 
 const firebaseConfig = {
@@ -23,9 +22,6 @@ const styles = (theme) =>
 		style1EX: {
 			someCSS: 'value',
 			anotherCSS: 'value',
-		},
-		buttonStyle: {
-			cursor: 'pointer'
 		}
 	})
 
@@ -37,18 +33,54 @@ class MainComponent extends Component
 		//it is settable with this.setState({attribute: value})
 		//will only override attribute and no other attributes
 		this.state={
-			openPage: 'MainPage',
+			names: 'Carter, Ren, Aedan, Rick',
+			showHidden: false,
 		}
+		
+		this.provider = new firebase.auth.GoogleAuthProvider();
 	}
 
-	renderPage = (param) => {
-		switch(param)
-		{
-			case 'MainPage':
-				return (<MainPage/>)
-			default:
-				return (<MainPage/>)
-		}
+	example = () =>
+	{
+		//example function
+		//use arrow functions so we can include it in our components
+		//when you include it don't add the () to the end of the name, just do example
+		//unless you are calling it within this file
+
+		//if you need to include arguments, do something like
+		// example = (arg1, arg2 ... ) => {function stuff}
+
+	}
+
+	toggleShow = () => {
+		this.setState({showHidden: ! this.state.showHidden})
+	}
+	
+	googleSignIn = () =>
+	{
+		firebase.auth().signInWithPopup(this.provider)
+			.then(function(result) 
+			{
+				// This gives you a Google Access Token. You can use it to access the Google API.
+				var token = result.credential.accessToken;
+				// The signed-in user info.
+				var user = result.user;
+				
+				console.log(user);
+			
+				
+			})
+			.catch(function(error) 
+			{
+			  // Handle Errors here.
+			  var errorCode = error.code;
+			  var errorMessage = error.message;
+			  // The email of the user's account used.
+			  var email = error.email;
+			  // The firebase.auth.AuthCredential type that was used.
+			  var credential = error.credential;
+			  // ...
+			});
 	}
 
 	render()
@@ -61,7 +93,26 @@ class MainComponent extends Component
 		return(
 			<div className="App" style={{backgroundImage: background}}>
 				<header className="App-header" >
-					{this.renderPage(this.state.openPage)}
+					<div style={{position: 'absolute', top: 0}}>
+						<button onClick={this.googleSignIn }>Log in with Google</button>
+						<button onClick={this.googleSignOut }>Sign out with Google</button>
+						<div onClick={this.toggleShow}>
+							<h1>Trick or Tweet</h1>
+						</div>
+						<div style={{marginTop: '10em'}} onClick={this.toggleShow}>
+							<h2>Go to a random house</h2>
+						</div>
+						<div onClick={this.toggleShow}>
+							<h2>Post your house</h2>
+						</div>
+						<div onClick={this.toggleShow}>
+							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
+						</div>
+						{this.state.showHidden ?
+							(<h1>{this.state.names}</h1>):
+							(null)
+						}
+					</div>
 				</header>
 			</div>
 		)
