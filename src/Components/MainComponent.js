@@ -48,7 +48,7 @@ class MainComponent extends Component
 	componentDidMount() {
 		this.setState({
 			openPage: 'MainPage',
-			page: (<MainPage switchPage={this.switchPage}/>)
+			page: (<MainPage switchPage={this.renderPage}/>)
 		})
 	}
 
@@ -56,23 +56,14 @@ class MainComponent extends Component
 		switch(page)
 		{
 			case 'MainPage':
-				console.log('here', page)
-				this.setState({page: (<MainPage switchPage={this.switchPage}/>)});
+				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
 				return;
 			case 'MainPageAlt':
-				console.log('here2', page)
-				this.setState({page: (<MainPageAlt switchPage={this.switchPage}/>)});
+				this.setState({page: (<MainPageAlt switchPage={this.renderPage}/>)});
 				return;
 			default:
-				console.log('here3', page)
-				this.setState({page: (<MainPage switchPage={this.switchPage}/>)});
+				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
 		}
-	}
-
-	switchPage = (page) =>{
-		console.log("PAGE SWITCH WITH :", page)
-		this.setState({openPage: page});
-		this.renderPage(page);
 	}
 
 	render()
@@ -81,7 +72,6 @@ class MainComponent extends Component
 		//only do things that are necessary here as it causes a performance hit
 		const {classes} = this.props;
 		const {page} = this.state;
-		console.log(page, this.state.openPage);
 		//classes.styleSheetItem will give you the class from the style sheet
 		//className={classes.styleSheet} will assign a class to the style sheet to the component
 		return(

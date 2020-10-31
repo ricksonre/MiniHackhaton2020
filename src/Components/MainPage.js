@@ -58,12 +58,6 @@ class MainPage extends Component
 		this.setState({showHidden: ! this.state.showHidden})
 	}
 
-	pageSwitch = (page) => {
-		console.log("WHYYYYYYYYYYYYYY")
-		console.log(page)
-		this.props.switchPage(page)
-	}
-
 	render()
 	{
 		//render is what will be called any time there is an update to the component
@@ -78,7 +72,7 @@ class MainPage extends Component
 						<div>
 							<h1>Trick or Tweet</h1>
 						</div>
-						<Button style={{color: 'blue', width: '10em',height: '5em', border: '2px solid white'}} onClick={() => this.pageSwitch('MainPageAlt')}/>
+						<Button style={{color: 'blue', width: '10em',height: '5em', border: '2px solid white'}} onClick={() => this.props.switchPage('MainPageAlt')}/>
 						<div style={{marginTop: '10em'}}>
 							<h2>Go to a random house</h2>
 						</div>
