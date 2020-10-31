@@ -54,7 +54,7 @@ class MainPage extends Component
 		//classes.styleSheetItem will give you the class from the style sheet
 		//className={classes.styleSheet} will assign a class to the style sheet to the component
 		return(
-			<div className="App" style={{backgroundImage: background}}>
+	
 				<header className="App-header" >
 					<div style={{position: 'absolute', top: 0}}>
 						<div>
@@ -76,7 +76,7 @@ class MainPage extends Component
 						}
 					</div>
 				</header>
-			</div>
+	
 		)
 	}
 

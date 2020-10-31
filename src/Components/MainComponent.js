@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase, {initializeApp} from 'firebase';
-import background from "../back.png";
 
 import MainPage from './MainPage';
 import MainPageAlt from "./MainPageAlt";
@@ -65,21 +64,29 @@ class MainComponent extends Component
 			this.renderPage("MainPage");
 
 	}
+	
+	userData = (data = null) =>
+	{
+		if(data != null)
+			this.user = data;
+		
+		return this.user;	
+	}
 
 	renderPage = (page) => {
 		switch(page)
 		{
 			case 'MainPage':
-				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPage switchPage={this.renderPage} user={this.userData}/>)});
 				return;
 			case 'MainPageAlt':
-				this.setState({page: (<MainPageAlt switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPageAlt switchPage={this.renderPage} user={this.userData} />)});
 				return;
 			case 'LogInPage':
-				this.setState({page: (<LogInPage switchPage={this.renderPage}/>)});
+				this.setState({page: (<LogInPage provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			default:
-				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPage switchPage={this.renderPage} user={this.userData}/>)});
 		}
 	}
 
@@ -92,10 +99,8 @@ class MainComponent extends Component
 		//classes.styleSheetItem will give you the class from the style sheet
 		//className={classes.styleSheet} will assign a class to the style sheet to the component
 		return(
-			<div className="App" style={{backgroundImage: background}}>
-				<header className="App-header" >
-					{page}
-				</header>
+			<div className="App">
+				{page}
 			</div>
 		)
 	}

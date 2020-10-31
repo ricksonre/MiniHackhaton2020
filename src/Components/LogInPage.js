@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
-import background2 from "../back_test.png";
-import background from "../back.png";
+import back from "../ttest.png";
+import gbn from "../gsignn.png";
+import gbp from "../gsignp.png";
 import {Button} from "@material-ui/core";
+import $ from 'jquery'
 
 
 const styles = (theme) =>
@@ -20,7 +22,7 @@ const styles = (theme) =>
 		}
 	})
 
-class MainPage extends Component
+class LogInPage extends Component
 {
 	constructor(props) 
 	{
@@ -32,18 +34,71 @@ class MainPage extends Component
 			names: 'Carter, Ren, Aedan, Rick',
 			showHidden: false,
 		}
+		
+		this.button = [ gbn, gbp];
 	}
-
-	example = () =>
+	
+	click_button(state)
 	{
-		//example function
-		//use arrow functions so we can include it in our components
-		//when you include it don't add the () to the end of the name, just do example
-		//unless you are calling it within this file
+		if(state)
+			$("#signin").attr("src", this.button[1] );
+		else
+			$("#signin").attr("src", this.button[0] );
+			
+	}
+	
+	gSignIn()
+	{
+		var provider = this.props.provider;
 
-		//if you need to include arguments, do something like
-		// example = (arg1, arg2 ... ) => {function stuff}
-
+		var that = this;
+		firebase.auth().signInWithPopup(provider)
+				.then(function(result) 
+				{
+					// This gives you a Google Access Token. You can use it to access the Google API.
+					var token = result.credential.accessToken;
+					// The signed-in user info.
+					var user = result.user;
+					
+					that.props.user(user);
+					
+					//getting specific user
+					const db = that.props.firebase.firestore();
+					const res = db.collection('User').doc(user["uid"]).get();
+					
+					res.then(result => 
+					{
+						console.log(result)
+						if(result == undefined)
+						{
+							db.collection('User').add(
+							{
+								avatar: null,
+								name: user["displayName"],
+								candyCount: 0,
+								houseID: null,
+								UserID: user["uid"],
+							});
+						}
+					});
+					that.props.switchPage("MainPage");
+					
+				})
+				.catch(function(error) 
+				{
+				  // Handle Errors here.
+				  var errorCode = error.code;
+				  var errorMessage = error.message;
+				  // The email of the user's account used.
+				  var email = error.email;
+				  // The firebase.auth.AuthCredential type that was used.
+				  var credential = error.credential;
+				  // ...
+				  
+				  console.log(error)
+				});
+				
+				
 	}
 
 	render()
@@ -52,13 +107,23 @@ class MainPage extends Component
 		const {classes} = this.props;
 		
 		return(
-			<div className="App" style={{backgroundImage: background2}}>
-				<p>asdfffffffffffffff</p>
-			</div>
+			<React.Fragment>
+			   <img src={back} style={{width: '100%', height: '100%'}} >
+			   </img>
+			   <button style={{margin: '0 0 0 0 ', padding: '0 0 0 0', border: "0", background: 'none',
+							position: "fixed", left: "20%", top: "40%"}} 
+						onClick={ ()=>{ this.gSignIn(); } }
+						onMouseDown={ ()=> { this.click_button(true); }}
+						onMouseUp={ ()=> { this.click_button(false); }}>
+					<img id="signin" src={this.button[0]} style={{width:"100%", height:"100%"}}></img>
+			   </button>
+
+			</React.Fragment>
+	
 		)
 	}
 
 
 }
 
-export default withStyles(styles)(MainPage);
+export default withStyles(styles)(LogInPage);
