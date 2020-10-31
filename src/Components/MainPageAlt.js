@@ -6,16 +6,6 @@ import background from "../back.png";
 import {Button} from "@material-ui/core";
 
 
-const firebaseConfig = {
-	apiKey: "AIzaSyD9O2AQQLt_BewjHewrUBhmlBDukaw4ArY",
-	authDomain: "hackathon2020-498db.firebaseapp.com",
-	databaseURL: "https://hackathon2020-498db.firebaseio.com",
-	projectId: "hackathon2020-498db",
-	storageBucket: "hackathon2020-498db.appspot.com",
-	messagingSenderId: "637374311684",
-	appId: "1:637374311684:web:be0b04ceb878a5131db451",
-	measurementId: "G-2DLHMCCWG3"
-};
 
 
 const styles = (theme) =>
