@@ -60,7 +60,7 @@ class MainComponent extends Component
 	componentDidMount() {
 		this.setState({
 			openPage: 'MainPage',
-			page: (<MainPage switchPage={this.renderPage}/>)
+			page: (<Leaderboard firebase={firebase} switchPage={this.renderPage}/>)
 		})
 	}
 
@@ -74,7 +74,7 @@ class MainComponent extends Component
 				this.setState({page: (<MainPageAlt switchPage={this.renderPage}/>)});
 				return;
 			case 'Leaderboard':
-				this.setState({page: (<Leaderboard switchPage={this.renderPage}/>)});
+				this.setState({page: (<Leaderboard firebase={firebase} switchPage={this.renderPage}/>)});
 				return;
 			default:
 				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});

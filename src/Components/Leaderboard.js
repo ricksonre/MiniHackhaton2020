@@ -29,6 +29,7 @@ class Leaderboard extends Component
         this.state={
             names: 'Carter, Ren, Aedan, Rick',
             showHidden: false,
+            users:null,
         }
     }
 
@@ -53,12 +54,22 @@ class Leaderboard extends Component
         console.log(page)
         this.props.switchPage(page)
     }
+    componentDidMount() {
+        let users = []
+        const db = this.props.firebase.firestore()
+        db.collection('User').get().orderBy("candyScore", "desc").limit(10).then((result) => {
+            result.forEach(doc => {users.push((<th>{doc.data().name + doc.data().candyScore}</th>))})
+        });
+        this.setState({users: users});
+
+    }
 
     render()
     {
         //render is what will be called any time there is an update to the component
         //only do things that are necessary here as it causes a performance hit
-        const {classes} = this.props
+        const {classes} = this.props;
+        const {users} = this.state;
         //classes.styleSheetItem will give you the class from the style sheet
         //className={classes.styleSheet} will assign a class to the style sheet to the component
         return(
@@ -73,10 +84,8 @@ class Leaderboard extends Component
                                         <th>Firstname</th>
                                     </tr>
                                     <tr>
-                                        <th>Player1</th>
-                                        <th>Player2</th>
-                                        <th>Player3</th>
-                                        <th>Player4</th>
+                                        {users}
+
                                     </tr>
 
                                 </table>
