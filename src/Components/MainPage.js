@@ -6,8 +6,6 @@ import background from "../back.png";
 import {Button} from "@material-ui/core";
 
 
-
-
 const styles = (theme) =>
 	({
 		style1EX: {

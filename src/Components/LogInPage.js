@@ -5,21 +5,23 @@ import firebase from 'firebase';
 import background from "../back.png";
 import {Button} from "@material-ui/core";
 
-
 const styles = (theme) =>
 	({
-		style1EX: {
+		style1EX: 
+		{
 			someCSS: 'value',
 			anotherCSS: 'value',
 		},
-		buttonStyle: {
+		buttonStyle: 
+		{
 			cursor: 'pointer'
 		}
 	})
 
 class MainPage extends Component
 {
-	constructor(props) {
+	constructor(props) 
+	{
 		super(props);
 		//this.state is accessible with this.state.attribute
 		//it is settable with this.setState({attribute: value})
@@ -42,7 +44,8 @@ class MainPage extends Component
 
 	}
 
-	toggleShow = () => {
+	toggleShow = () => 
+	{
 		this.setState({showHidden: ! this.state.showHidden})
 	}
 
@@ -70,7 +73,8 @@ class MainPage extends Component
 						<div>
 							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
 						</div>
-						{this.state.showHidden ?
+						{
+							this.state.showHidden ?
 							(<h1>{this.state.names}</h1>):
 							(null)
 						}
