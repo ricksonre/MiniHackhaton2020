@@ -68,7 +68,7 @@ class LogInPage extends Component
 					
 					res.then(result => 
 					{
-						if(result.data == undefined)
+						if(result.data() == undefined)
 						{
 							db.collection('User').doc(user["uid"]).set(
 							{
