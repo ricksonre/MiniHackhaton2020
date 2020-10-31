@@ -55,11 +55,16 @@ class Leaderboard extends Component
         this.props.switchPage(page)
     }
     componentDidMount() {
+		
+		console.log(1);
+		
         let users = []
         const db = this.props.firebase.firestore()
         db.collection('User').orderBy("candyScore", "desc").limit(5).get().then((result) => {
             result.forEach(doc => {users.push((<th>{doc.data().name +" "+ doc.data().candyScore}</th>))})
+			this.setState({users: users});
         });
+		
         this.setState({users: users});
 
     }
@@ -70,6 +75,9 @@ class Leaderboard extends Component
         //only do things that are necessary here as it causes a performance hit
         const {classes} = this.props;
         const {users} = this.state;
+		
+		console.log(this.state);
+		
         //classes.styleSheetItem will give you the class from the style sheet
         //className={classes.styleSheet} will assign a class to the style sheet to the component
         return(
@@ -79,7 +87,7 @@ class Leaderboard extends Component
                         <header className="App-header" >
                             <div style={{position: 'absolute', top: 0}}>
                                 <table style={{width:'100%'}}>
-
+									<tbody>
                                     <tr>
                                         <th>Leaderboard! Highest candy counts!</th>
                                     </tr>
@@ -87,7 +95,7 @@ class Leaderboard extends Component
                                         {users}
 
                                     </tr>
-
+									</tbody>
                                 </table>
                             </div>
                         </header>
