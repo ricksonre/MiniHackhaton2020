@@ -53,11 +53,10 @@ class MainComponent extends Component
 
 	componentDidMount() 
 	{
-		
-		if(this.user == undefined)
+		if(typeof(this.user) === undefined)
 			this.renderPage("LoginPage");
 		else
-			this.renderPage("MainPage");
+			this.renderPage("HouseView");
 
 	}
 	
@@ -86,7 +85,7 @@ class MainComponent extends Component
 				this.setState({page: (<LogInPage provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			case 'HouseView':
-				this.setState({page: (<HouseView provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
+				this.setState({page: (<HouseView openHouse={this.state.openHouse} setHouseID={this.setHouseID} comments={[]} provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			default:
 				this.setState({page: (<MainPage userID={this.user.uid} setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});

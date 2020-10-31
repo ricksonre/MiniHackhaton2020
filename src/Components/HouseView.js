@@ -6,19 +6,6 @@ import background from "../back.png";
 import {Button} from "@material-ui/core";
 import MainPage from "./MainPage";
 
-
-const firebaseConfig = {
-    apiKey: "AIzaSyD9O2AQQLt_BewjHewrUBhmlBDukaw4ArY",
-    authDomain: "hackathon2020-498db.firebaseapp.com",
-    databaseURL: "https://hackathon2020-498db.firebaseio.com",
-    projectId: "hackathon2020-498db",
-    storageBucket: "hackathon2020-498db.appspot.com",
-    messagingSenderId: "637374311684",
-    appId: "1:637374311684:web:be0b04ceb878a5131db451",
-    measurementId: "G-2DLHMCCWG3"
-};
-
-
 const styles = (theme) =>
     ({
         style1EX: {
@@ -46,17 +33,15 @@ class HouseView extends Component {
         const db = this.props.firebase.firestore();
         let comments = [];
         let housePic = [];
-        db.collection("House").doc(this.props.uid).get().then((result) => {
+        db.collection("house").doc('ATwH5pTpJCNcXbUnazXZ').collection('comments').get().then((result) => {
             result.forEach(doc => {
                 comments.push(<tr><h>doc.data().userName</h><p>doc.data().comment</p></tr>);
                 result.forEach(doc => {console.log(doc.data.Image)});
             })
         });
 
-        db.collection("User").doc(this.props.HouseID).get().then((result) => {
-            result.forEach(doc => {
-                housePic.push(doc.data.Avatar);
-            })
+        db.collection("User").doc('ATwH5pTpJCNcXbUnazXZ').get().then((result) => {
+            housePic.push(result.data() ? result.data().Avatar : false);
         });
 
     }
@@ -69,7 +54,7 @@ class HouseView extends Component {
         if(newComment.length > 0)
         {
             const db = this.firebase.firestore()
-            const res = db.collection("House").document(this.props.HouseID).collection("Comments").add({
+            const res = db.collection("house").document('ATwH5pTpJCNcXbUnazXZ').collection("Comments").add({
                 text: newComment,
                 user: this.props.uid
             });
@@ -122,4 +107,4 @@ class HouseView extends Component {
 }
 
 
-export default withStyles(styles)(MainPage);
+export default withStyles(styles)(HouseView);
