@@ -40,8 +40,11 @@ class MainPage extends Component
 		const db = this.props.firebase.firestore();
 		db.collection('house').get().then((result) => {
 			result.forEach((doc, i )=> {userTemp[i] = doc.id})
+			this.setState({userHouses: userTemp})
 		});
-		this.setState({userHouses: userTemp})
+		db.collection('User').doc(this.props.userID).get().then(result => {
+			this.setState({userHouse: result? result.houseID: undefined})
+		})
 	}
 
 	toggleShow = () => {
@@ -58,7 +61,7 @@ class MainPage extends Component
 	{
 		//render is what will be called any time there is an update to the component
 		//only do things that are necessary here as it causes a performance hit
-		const {classes} = this.props;
+		const {classes,userHouse} = this.props;
 
 		console.log();
 		//console.log(this.props.firebase.database().ref('Users/gVBmMWF7m7cD8IwUTqG3'))
@@ -74,11 +77,18 @@ class MainPage extends Component
 						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse}>
 							<h2 className={classes.hoverStyle}>Go to a random house</h2>
 						</div>
-						<div className={classes.buttonStyle}>
-							<h2 className={classes.hoverStyle}>Post your house</h2>
-						</div>
-						<div className={classes.buttonStyle}>
-							<h3 style={{marginTop: '5em'}} className={classes.hoverStyle}>Setup Account</h3>
+						{userHouse ? (<div className={classes.buttonStyle}>
+							<h2 className={classes.hoverStyle}>View your house</h2>
+						</div>) :
+							(
+								<div className={classes.buttonStyle}>
+									<h2 className={classes.hoverStyle}>Post your house</h2>
+								</div>
+							)
+						}
+
+						<div className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
+							<h3 style={{marginTop: '5em'}} className={classes.hoverStyle}>Leaderboard</h3>
 						</div>
 					</div>
 				</header>

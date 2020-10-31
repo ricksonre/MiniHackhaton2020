@@ -77,7 +77,7 @@ class MainComponent extends Component
 		switch(page)
 		{
 			case 'MainPage':
-				this.setState({page: (<MainPage setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPage userID={this.user.uid} setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 				return;
 			case 'MainPageAlt':
 				this.setState({page: (<MainPageAlt setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
@@ -89,7 +89,7 @@ class MainComponent extends Component
 				this.setState({page: (<HouseView provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			default:
-				this.setState({page: (<MainPage setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPage userID={this.user.uid} setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 		}
 	}
 
