@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
+import background2 from "../back_test.png";
 import background from "../back.png";
 import {Button} from "@material-ui/core";
+
 
 const styles = (theme) =>
 	({
@@ -44,42 +46,14 @@ class MainPage extends Component
 
 	}
 
-	toggleShow = () => 
-	{
-		this.setState({showHidden: ! this.state.showHidden})
-	}
-
 	render()
 	{
-		//render is what will be called any time there is an update to the component
-		//only do things that are necessary here as it causes a performance hit
-		const {classes} = this.props
-		//classes.styleSheetItem will give you the class from the style sheet
-		//className={classes.styleSheet} will assign a class to the style sheet to the component
+
+		const {classes} = this.props;
+		
 		return(
-			<div className="App" style={{backgroundImage: background}}>
-				<header className="App-header" >
-					<div style={{position: 'absolute', top: 0}}>
-						<div>
-							<h1>Trick or Tweet</h1>
-						</div>
-						<Button style={{color: 'blue', width: '10em',height: '5em', border: '2px solid white'}} onClick={() => this.props.switchPage('MainPageAlt')}/>
-						<div style={{marginTop: '10em'}}>
-							<h2>Go to a random house</h2>
-						</div>
-						<div>
-							<h2>Post your house</h2>
-						</div>
-						<div>
-							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
-						</div>
-						{
-							this.state.showHidden ?
-							(<h1>{this.state.names}</h1>):
-							(null)
-						}
-					</div>
-				</header>
+			<div className="App" style={{backgroundImage: background2}}>
+				<p>asdfffffffffffffff</p>
 			</div>
 		)
 	}

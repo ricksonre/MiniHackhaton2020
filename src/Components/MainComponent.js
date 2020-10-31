@@ -44,23 +44,26 @@ class MainComponent extends Component
 {
 	constructor(props) {
 		super(props);
-		//this.state is accessible with this.state.attribute
-		//it is settable with this.setState({attribute: value})
-		//will only override attribute and no other attributes
-		this.state={
 
+		this.state=
+		{
 			openPage: null,
 			page: (null)
 		}
 		
 		this.provider = new firebase.auth.GoogleAuthProvider();
+		
+		this.user = null;
 	}
 
-	componentDidMount() {
-		this.setState({
-			openPage: 'MainPage',
-			page: (<MainPage switchPage={this.renderPage}/>)
-		})
+	componentDidMount() 
+	{
+		
+		if(this.user == undefined)
+			this.renderPage("LogInPage");
+		else
+			this.renderPage("MainPage");
+
 	}
 
 	renderPage = (page) => {
@@ -71,6 +74,9 @@ class MainComponent extends Component
 				return;
 			case 'MainPageAlt':
 				this.setState({page: (<MainPageAlt switchPage={this.renderPage}/>)});
+				return;
+			case 'LogInPage':
+				this.setState({page: (<LogInPage switchPage={this.renderPage}/>)});
 				return;
 			default:
 				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
