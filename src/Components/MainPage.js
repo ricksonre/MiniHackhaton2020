@@ -71,7 +71,7 @@ class MainPage extends Component
 						<div>
 							<h1>Trick or Tweet</h1>
 						</div>
-						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
+						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse}>
 							<h2 className={classes.hoverStyle}>Go to a random house</h2>
 						</div>
 						<div className={classes.buttonStyle}>

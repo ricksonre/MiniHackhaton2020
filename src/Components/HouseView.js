@@ -34,7 +34,8 @@ class HouseView extends Component {
     constructor(props) {
         super(props);
         this.state= {
-            comments: null
+            comments: null,
+            HousePic: null
         }
         //this.state is accessible with this.state.attribute
         //it is settable with this.setState({attribute: value})
@@ -42,11 +43,19 @@ class HouseView extends Component {
 
     }
     componentDidMount() {
-        const db = this.props.firebase().firestore();
+        const db = this.props.firebase.firestore();
         let comments = [];
+        let housePic = [];
         db.collection("House").doc(this.props.uid).get().then((result) => {
             result.forEach(doc => {
-                comments.push(<tr><h>doc.data().userName</h><p>doc.data().comment</p></tr>)
+                comments.push(<tr><h>doc.data().userName</h><p>doc.data().comment</p></tr>);
+                result.forEach(doc => {console.log(doc.data.Image)});
+            })
+        });
+
+        db.collection("User").doc(this.props.HouseID).get().then((result) => {
+            result.forEach(doc => {
+                housePic.push(doc.data.Avatar);
             })
         });
 
@@ -55,6 +64,22 @@ class HouseView extends Component {
 
     toggleShow = () => {
         this.setState({showHidden: ! this.state.showHidden})
+    }
+    addComment = (newComment) => {
+        if(newComment.length > 0)
+        {
+            const db = this.firebase.firestore()
+            const res = db.collection("House").document(this.props.HouseID).collection("Comments").add({
+                text: newComment,
+                user: this.props.uid
+            });
+            return "";
+        } else
+        {
+            return "Please Enter a comment...";
+        }
+
+
     }
 
     render()
@@ -69,8 +94,15 @@ class HouseView extends Component {
         return(
             <div className="App" style={{backgroundImage: background}}>
                 <header className="App-header" >
-                    <Button text={"Comment"} style={{color: 'blue', width: '10em',height: '5em', border: '2px solid white'}} onClick={() => this.props.switchPage('House')}/>
+                    <img src = "House URL HERE" />
+                    <img src = "Avata URL HERE"/>
                     <table>
+                        <tr>
+                    <div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => document.getElementById("commentBox").value = this.addComment( document.getElementById("commentBox").value)}>
+                        <h2 className={classes.hoverStyle}>Comment</h2>
+                        <input type="text" id="commentBox" name="commentBox"/>
+                    </div>
+                        </tr>
                         <tr>
                             <h>Aedan</h>
                             <p>Cool House</p>
@@ -79,6 +111,7 @@ class HouseView extends Component {
                             <h>Carter</h>
                             <p>dumb house</p>
                         </tr>
+                        comments
                     </table>
                 </header>
             </div>

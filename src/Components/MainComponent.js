@@ -55,7 +55,7 @@ class MainComponent extends Component
 	{
 		
 		if(this.user == undefined)
-			this.renderPage("LogInPage");
+			this.renderPage("LoginPage");
 		else
 			this.renderPage("MainPage");
 
