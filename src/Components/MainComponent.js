@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
+import background from "../back.png";
 
 
 const firebaseConfig = {
@@ -57,8 +58,8 @@ class MainComponent extends Component
 		//classes.styleSheetItem will give you the class from the style sheet
 		//className={classes.styleSheet} will assign a class to the style sheet to the component
 		return(
-			<div className="App">
-				<header className="App-header">
+			<div className="App" style={{backgroundImage: background}}>
+				<header className="App-header" >
 					<img src={logo} className="App-logo" alt="logo" />
 					<p>
 						Hackaton Lite 2020 Project
