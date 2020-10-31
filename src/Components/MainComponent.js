@@ -6,6 +6,7 @@ import background from "../back.png";
 
 import MainPage from './MainPage';
 import MainPageAlt from "./MainPageAlt";
+import Leaderboard from "./Leaderboard";
 import LogInPage from "./LogInPage";
 
 
@@ -71,6 +72,9 @@ class MainComponent extends Component
 				return;
 			case 'MainPageAlt':
 				this.setState({page: (<MainPageAlt switchPage={this.renderPage}/>)});
+				return;
+			case 'Leaderboard':
+				this.setState({page: (<Leaderboard switchPage={this.renderPage}/>)});
 				return;
 			default:
 				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
