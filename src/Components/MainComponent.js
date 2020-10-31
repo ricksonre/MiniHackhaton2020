@@ -8,16 +8,7 @@ import MainPageAlt from "./MainPageAlt";
 import LogInPage from "./LogInPage";
 
 
-firebase.initializeApp({
-	apiKey: "AIzaSyD9O2AQQLt_BewjHewrUBhmlBDukaw4ArY",
-	authDomain: "hackathon2020-498db.firebaseapp.com",
-	databaseURL: "https://hackathon2020-498db.firebaseio.com",
-	projectId: "hackathon2020-498db",
-	storageBucket: "hackathon2020-498db.appspot.com",
-	messagingSenderId: "637374311684",
-	appId: "1:637374311684:web:be0b04ceb878a5131db451",
-	measurementId: "G-2DLHMCCWG3"
-});
+
 
 const firebaseConfig = {
 	apiKey: "AIzaSyD9O2AQQLt_BewjHewrUBhmlBDukaw4ArY",
@@ -29,6 +20,8 @@ const firebaseConfig = {
 	appId: "1:637374311684:web:be0b04ceb878a5131db451",
 	measurementId: "G-2DLHMCCWG3"
 };
+
+firebase.initializeApp(firebaseConfig);
 
 
 const styles = (theme) =>
@@ -43,11 +36,14 @@ class MainComponent extends Component
 {
 	constructor(props) {
 		super(props);
-
+		//this.state is accessible with this.state.attribute
+		//it is settable with this.setState({attribute: value})
+		//will only override attribute and no other attributes
 		this.state=
-		{
+        {
+			openHouse: null,
 			openPage: null,
-			page: (null)
+			page: null
 		}
 		
 		this.provider = new firebase.auth.GoogleAuthProvider();
@@ -73,20 +69,24 @@ class MainComponent extends Component
 		return this.user;	
 	}
 
+	setHouseID = (id) => {
+		this.setState({openHouse: id});
+	}
+
 	renderPage = (page) => {
 		switch(page)
 		{
 			case 'MainPage':
-				this.setState({page: (<MainPage switchPage={this.renderPage} user={this.userData}/>)});
+				this.setState({page: (<MainPage setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 				return;
 			case 'MainPageAlt':
-				this.setState({page: (<MainPageAlt switchPage={this.renderPage} user={this.userData} />)});
+				this.setState({page: (<MainPageAlt setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 				return;
 			case 'LogInPage':
 				this.setState({page: (<LogInPage provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			default:
-				this.setState({page: (<MainPage switchPage={this.renderPage} user={this.userData}/>)});
+				this.setState({page: (<MainPage setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 		}
 	}
 

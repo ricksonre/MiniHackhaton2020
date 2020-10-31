@@ -14,6 +14,11 @@ const styles = (theme) =>
 		},
 		buttonStyle: {
 			cursor: 'pointer'
+		},
+		hoverStyle: {
+			"&:hover":{
+				color: 'grey'
+			}
 		}
 	})
 
@@ -25,32 +30,38 @@ class MainPage extends Component
 		//it is settable with this.setState({attribute: value})
 		//will only override attribute and no other attributes
 		this.state={
-			names: 'Carter, Ren, Aedan, Rick',
 			showHidden: false,
+			userHouses: [],
 		}
 	}
 
-	example = () =>
-	{
-		//example function
-		//use arrow functions so we can include it in our components
-		//when you include it don't add the () to the end of the name, just do example
-		//unless you are calling it within this file
-
-		//if you need to include arguments, do something like
-		// example = (arg1, arg2 ... ) => {function stuff}
-
+	componentDidMount() {
+		let userTemp = [];
+		const db = this.props.firebase.firestore();
+		db.collection('house').get().then((result) => {
+			result.forEach((doc, i )=> {userTemp[i] = doc.id})
+		});
+		this.setState({userHouses: userTemp})
 	}
 
 	toggleShow = () => {
 		this.setState({showHidden: ! this.state.showHidden})
 	}
 
+	randomHouse =()=>{
+		const houses = this.state.userHouses;
+		this.props.switchPage('HousePage');
+		this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
+	}
+
 	render()
 	{
 		//render is what will be called any time there is an update to the component
 		//only do things that are necessary here as it causes a performance hit
-		const {classes} = this.props
+		const {classes} = this.props;
+
+		console.log();
+		//console.log(this.props.firebase.database().ref('Users/gVBmMWF7m7cD8IwUTqG3'))
 		//classes.styleSheetItem will give you the class from the style sheet
 		//className={classes.styleSheet} will assign a class to the style sheet to the component
 		return(
@@ -60,20 +71,15 @@ class MainPage extends Component
 						<div>
 							<h1>Trick or Tweet</h1>
 						</div>
-						<Button style={{color: 'blue', width: '10em',height: '5em', border: '2px solid white'}} onClick={() => this.props.switchPage('MainPageAlt')}/>
-						<div style={{marginTop: '10em'}}>
-							<h2>Go to a random house</h2>
+						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
+							<h2 className={classes.hoverStyle}>Go to a random house</h2>
 						</div>
-						<div>
-							<h2>Post your house</h2>
+						<div className={classes.buttonStyle}>
+							<h2 className={classes.hoverStyle}>Post your house</h2>
 						</div>
-						<div>
-							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
+						<div className={classes.buttonStyle}>
+							<h3 style={{marginTop: '5em'}} className={classes.hoverStyle}>Setup Account</h3>
 						</div>
-						{this.state.showHidden ?
-							(<h1>{this.state.names}</h1>):
-							(null)
-						}
 					</div>
 				</header>
 	
