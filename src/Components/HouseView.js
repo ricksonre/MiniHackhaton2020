@@ -51,18 +51,18 @@ class HouseView extends Component {
     toggleShow = () => {
         this.setState({showHidden: ! this.state.showHidden})
     }
-    addComment = () => {
+    addComment = (event) => {
+        event.preventDefault();
         const newComment=this.state.value;
         this.setState({value: ''})
         if(newComment.length > 0)
         {
             try {
-                const db = this.firebase.firestore()
-                const res = db.collection("house").doc('ATwH5pTpJCNcXbUnazXZ').get().then(doc =>
-                {doc.collection("Comments").set({
+                const db = this.props.firebase.firestore()
+                const res = db.collection("house").doc('ATwH5pTpJCNcXbUnazXZ').collection("Comments").add({
                     text: newComment,
                     user: this.props.user.uid
-                })});
+                });
             }
             catch (e) {
                 console.log(e)
