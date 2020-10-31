@@ -34,6 +34,7 @@ class MainComponent extends Component
 		//will only override attribute and no other attributes
 		this.state={
 			names: 'Carter, Ren, Aedan, Rick',
+			showHidden: false,
 		}
 	}
 
@@ -49,6 +50,9 @@ class MainComponent extends Component
 
 	}
 
+	toggleShow = () => {
+		this.setState({showHidden: ! this.state.showHidden})
+	}
 
 	render()
 	{
@@ -61,18 +65,22 @@ class MainComponent extends Component
 			<div className="App" style={{backgroundImage: background}}>
 				<header className="App-header" >
 					<div style={{position: 'absolute', top: 0}}>
-						<div>
+						<div onClick={this.toggleShow}>
 							<h1>Trick or Tweet</h1>
 						</div>
-						<div style={{marginTop: '10em'}}>
+						<div style={{marginTop: '10em'}} onClick={this.toggleShow}>
 							<h2>Go to a random house</h2>
 						</div>
-						<div>
+						<div onClick={this.toggleShow}>
 							<h2>Post your house</h2>
 						</div>
-						<div>
+						<div onClick={this.toggleShow}>
 							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
 						</div>
+						{this.state.showHidden ?
+							(<h1>{this.state.names}</h1>):
+							(null)
+						}
 					</div>
 				</header>
 			</div>
