@@ -41,6 +41,10 @@ class MainPage extends Component
 		}
 	}
 
+	componentDidMount() {
+		this.props.switchPage('MainPage')
+	}
+
 	example = () =>
 	{
 		//example function
@@ -57,6 +61,11 @@ class MainPage extends Component
 		this.setState({showHidden: ! this.state.showHidden})
 	}
 
+	pageSwitch = (page) => {
+		console.log("WHYYYYYYYYYYYYYY")
+		this.props.switchPage(page)
+	}
+
 	render()
 	{
 		//render is what will be called any time there is an update to the component
@@ -68,16 +77,16 @@ class MainPage extends Component
 			<div className="App" style={{backgroundImage: background}}>
 				<header className="App-header" >
 					<div style={{position: 'absolute', top: 0}}>
-						<div onClick={this.toggleShow}>
+						<div onClick={this.pageSwitch('MainPageAlt')}>
 							<h1>Trick or Tweet</h1>
 						</div>
-						<div style={{marginTop: '10em'}} onClick={this.toggleShow}>
+						<div style={{marginTop: '10em'}}>
 							<h2>Go to a random house</h2>
 						</div>
-						<div onClick={this.toggleShow}>
+						<div>
 							<h2>Post your house</h2>
 						</div>
-						<div onClick={this.toggleShow}>
+						<div>
 							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
 						</div>
 						{this.state.showHidden ?

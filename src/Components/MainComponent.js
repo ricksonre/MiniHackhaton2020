@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
-import firebase from 'firebase';
+import firebase, {initializeApp} from 'firebase';
 import background from "../back.png";
 import MainPage from './MainPage';
+import MainPageAlt from "./MainPageAlt";
 
 
-const firebaseConfig = {
+firebase.initializeApp({
 	apiKey: "AIzaSyD9O2AQQLt_BewjHewrUBhmlBDukaw4ArY",
 	authDomain: "hackathon2020-498db.firebaseapp.com",
 	databaseURL: "https://hackathon2020-498db.firebaseio.com",
@@ -15,7 +16,7 @@ const firebaseConfig = {
 	messagingSenderId: "637374311684",
 	appId: "1:637374311684:web:be0b04ceb878a5131db451",
 	measurementId: "G-2DLHMCCWG3"
-};
+});
 
 
 const styles = (theme) =>
@@ -37,31 +38,51 @@ class MainComponent extends Component
 		//it is settable with this.setState({attribute: value})
 		//will only override attribute and no other attributes
 		this.state={
-			openPage: 'MainPage',
+			openPage: null,
+			page: (null)
 		}
 	}
 
-	renderPage = (param) => {
-		switch(param)
+	componentDidMount() {
+		this.setState({
+			openPage: 'MainPage',
+			page: (<MainPage switchPage={this.switchPage}/>)
+		})
+	}
+
+	renderPage = () => {
+		switch(this.state.openPage)
 		{
 			case 'MainPage':
-				return (<MainPage/>)
+				this.setState({page: (<MainPage switchPage={this.switchPage}/>)});
+				return;
+			case 'MainPageAlt':
+				this.setState({page: (<MainPageAlt switchPage={this.switchPage}/>)});
+				return;
 			default:
-				return (<MainPage/>)
+				this.setState({page: (<MainPage switchPage={this.switchPage}/>)});
 		}
+	}
+
+	switchPage = (page) =>{
+		console.log("PAGE SWITCH WITH :", page)
+		this.setState({openPage: page});
+		this.renderPage();
 	}
 
 	render()
 	{
 		//render is what will be called any time there is an update to the component
 		//only do things that are necessary here as it causes a performance hit
-		const {classes} = this.props
+		const {classes} = this.props;
+		const {page} = this.state;
+		console.log(this.state.openPage);
 		//classes.styleSheetItem will give you the class from the style sheet
 		//className={classes.styleSheet} will assign a class to the style sheet to the component
 		return(
 			<div className="App" style={{backgroundImage: background}}>
 				<header className="App-header" >
-					{this.renderPage(this.state.openPage)}
+					{page}
 				</header>
 			</div>
 		)
