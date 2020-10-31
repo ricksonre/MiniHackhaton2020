@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
 import "../mainpage.css";
 import background from "../back.png";
-import {Button} from "@material-ui/core";
-
+import { Button } from "@material-ui/core";
+import HandleImage from "../Helpers/HandleImage.js";
 
 const styles = (theme) =>
 	({
@@ -17,7 +17,7 @@ const styles = (theme) =>
 			cursor: 'pointer'
 		},
 		hoverStyle: {
-			"&:hover":{
+			"&:hover": {
 				color: 'grey'
 			}
 		}
@@ -25,34 +25,40 @@ const styles = (theme) =>
 
 class MainPage extends Component
 {
-	constructor(props) {
+	constructor(props)
+	{
 		super(props);
 		//this.state is accessible with this.state.attribute
 		//it is settable with this.setState({attribute: value})
 		//will only override attribute and no other attributes
-		this.state={
+		this.state = {
 			showHidden: false,
 			userHouses: [],
 		}
 	}
 
-	componentDidMount() {
+	componentDidMount()
+	{
 		let userTemp = [];
 		const db = this.props.firebase.firestore();
-		db.collection('house').get().then((result) => {
-			result.forEach((doc, i )=> {userTemp[i] = doc.id})
-			this.setState({userHouses: userTemp})
+		db.collection('house').get().then((result) =>
+		{
+			result.forEach((doc, i) => { userTemp[i] = doc.id })
+			this.setState({ userHouses: userTemp })
 		});
-		db.collection('User').doc(this.props.userID).get().then(result => {
-			this.setState({userHouse: result? result.houseID: undefined})
+		db.collection('User').doc(this.props.userID).get().then(result =>
+		{
+			this.setState({ userHouse: result ? result.houseID : undefined })
 		})
 	}
 
-	toggleShow = () => {
-		this.setState({showHidden: ! this.state.showHidden})
+	toggleShow = () =>
+	{
+		this.setState({ showHidden: !this.state.showHidden })
 	}
 
-	randomHouse =()=>{
+	randomHouse = () =>
+	{
 		const houses = this.state.userHouses;
 		this.props.switchPage('HousePage');
 		this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
@@ -60,32 +66,38 @@ class MainPage extends Component
 
 	render()
 	{
-		const {classes,userHouse} = this.props;
+		const { classes, userHouse } = this.props;
+		const user = this.props.user();
 
-		return(
-					<div className="peak" style={{height: '100%'}}>
-							<div className="content-body">
-							<div>
-								<h1>Haunter</h1>
-							</div>
-							<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
-								<h2 className={classes.hoverStyle}>Go to a random house</h2>
-							</div>
-							{userHouse ? (<div className={classes.buttonStyle}>
-								<h2 className={classes.hoverStyle}>View your house</h2>
-							</div>) :
-								(
-									<div className={classes.buttonStyle}>
-										<h2 className={classes.hoverStyle}>Post your house</h2>
-									</div>
-								)
-							}
+		console.log(user)
 
-							<div className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
-								<h3 style={{marginTop: '5em'}} className={classes.hoverStyle}>Leaderboard</h3>
-							</div>
-							</div>
+		return (
+			<div className="peak" style={{ height: '100%' }}>
+				<div className="content-body">
+					<div>
+						<h2>
+							<span>
+								My Home
+									</span>
+							<span>
+								Visit Homes
+									</span>
+							<span className={classes.buttonStyle} style={{ marginTop: '10em' }} onClick={() => this.randomHouse()}>
+								Random Home
+								</span>
+							<span className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
+								Leaderboard
+									</span>
+
+						</h2>
 					</div>
+
+					<div>
+						<h1 className="userName">{user["displayName"]}</h1>
+					</div>
+
+				</div>
+			</div>
 
 		)
 	}

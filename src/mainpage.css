@@ -13,3 +13,9 @@
 {
 	background-image: url("back.png");
 }
+
+.userName
+{
+	text-align: left;
+	padding: 1em 2em 1em 2em;
+}
