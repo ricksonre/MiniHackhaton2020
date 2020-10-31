@@ -3,6 +3,7 @@ import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
 import background from "../back.png";
+import {Button} from "@material-ui/core";
 
 
 const firebaseConfig = {
@@ -41,10 +42,6 @@ class MainPage extends Component
 		}
 	}
 
-	componentDidMount() {
-		this.props.switchPage('MainPage')
-	}
-
 	example = () =>
 	{
 		//example function
@@ -63,6 +60,7 @@ class MainPage extends Component
 
 	pageSwitch = (page) => {
 		console.log("WHYYYYYYYYYYYYYY")
+		console.log(page)
 		this.props.switchPage(page)
 	}
 
@@ -77,9 +75,10 @@ class MainPage extends Component
 			<div className="App" style={{backgroundImage: background}}>
 				<header className="App-header" >
 					<div style={{position: 'absolute', top: 0}}>
-						<div onClick={this.pageSwitch('MainPageAlt')}>
+						<div>
 							<h1>Trick or Tweet</h1>
 						</div>
+						<Button style={{color: 'blue', width: '10em',height: '5em', border: '2px solid white'}} onClick={() => this.pageSwitch('MainPageAlt')}/>
 						<div style={{marginTop: '10em'}}>
 							<h2>Go to a random house</h2>
 						</div>

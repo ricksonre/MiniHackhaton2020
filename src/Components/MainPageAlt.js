@@ -3,6 +3,7 @@ import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
 import background from "../back.png";
+import {Button} from "@material-ui/core";
 
 
 const firebaseConfig = {
@@ -58,6 +59,8 @@ class MainPageAlt extends Component
 	}
 
 	pageSwitch = (page) => {
+		console.log("WHYYYYYYYYYYYYYY")
+		console.log(page)
 		this.props.switchPage(page)
 	}
 
@@ -72,16 +75,17 @@ class MainPageAlt extends Component
 			<div className="App" style={{backgroundImage: background}}>
 				<header className="App-header" >
 					<div style={{position: 'absolute', top: 0}}>
-						<div onClick={this.pageSwitch('MainPage')}>
+						<div>
 							<h1>ALT</h1>
 						</div>
-						<div style={{marginTop: '10em'}} onClick={this.toggleShow}>
+						<Button style={{color: 'blue', width: '10em',height: '5em', border: '2px solid white'}} onClick={() => this.pageSwitch('MainPage')}/>
+						<div style={{marginTop: '10em'}}>
 							<h2>ALT</h2>
 						</div>
-						<div onClick={this.toggleShow}>
+						<div>
 							<h2>ALT</h2>
 						</div>
-						<div onClick={this.toggleShow}>
+						<div>
 							<h3 style={{marginTop: '5em'}}>ALT</h3>
 						</div>
 						{this.state.showHidden ?
