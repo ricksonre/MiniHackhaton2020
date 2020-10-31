@@ -22,7 +22,8 @@ class HouseView extends Component {
         super(props);
         this.state= {
             comments: null,
-            HousePic: null
+            HousePic: null,
+            value: '',
         }
         //this.state is accessible with this.state.attribute
         //it is settable with this.setState({attribute: value})
@@ -50,21 +51,26 @@ class HouseView extends Component {
     toggleShow = () => {
         this.setState({showHidden: ! this.state.showHidden})
     }
-    addComment = (newComment) => {
+    addComment = () => {
+        const newComment=this.state.value;
         if(newComment.length > 0)
         {
-            const db = this.firebase.firestore()
-            const res = db.collection("house").document('ATwH5pTpJCNcXbUnazXZ').collection("Comments").add({
-                text: newComment,
-                user: this.props.uid
-            });
-            return "";
-        } else
-        {
-            return "Please Enter a comment...";
+            try {
+                const db = this.firebase.firestore()
+                const res = db.collection("house").document('ATwH5pTpJCNcXbUnazXZ').collection("Comments").add({
+                    text: newComment,
+                    user: this.props.user.uid
+                });
+            }
+            catch (e) {
+                console.log(e)
+            }
         }
+    }
 
-
+    handleChange = (event) =>
+    {
+        this.setState({value: event.target.value})
     }
 
     render()
@@ -83,9 +89,13 @@ class HouseView extends Component {
                     <img src = "Avata URL HERE"/>
                     <table>
                         <tr>
-                    <div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => document.getElementById("commentBox").value = this.addComment( document.getElementById("commentBox").value)}>
+                    <div style={{marginTop: '10em'}}>
                         <h2 className={classes.hoverStyle}>Comment</h2>
-                        <input type="text" id="commentBox" name="commentBox"/>
+                        <form onSubmit={this.addComment}>
+                                <input style={{width: '20em', height: '3em'}} type="text" value={this.state.value} onChange={this.handleChange} />
+                            <input type="submit" value="Submit"  style={{height: '3.5em', width: '5em', marginLeft: '1em'}}/>
+                        </form>
+                        <br/>
                     </div>
                         </tr>
                         <tr>
