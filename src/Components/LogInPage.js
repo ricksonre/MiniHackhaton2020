@@ -68,16 +68,14 @@ class LogInPage extends Component
 					
 					res.then(result => 
 					{
-						console.log(result)
-						if(result == undefined)
+						if(result.data == undefined)
 						{
-							db.collection('User').add(
+							db.collection('User').doc(user["uid"]).set(
 							{
 								avatar: null,
 								name: user["displayName"],
 								candyCount: 0,
 								houseID: null,
-								UserID: user["uid"],
 							});
 						}
 					});
