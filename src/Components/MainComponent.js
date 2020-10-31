@@ -9,7 +9,8 @@ import MainPageAlt from "./MainPageAlt";
 
 
 
-firebase.initializeApp({
+
+const firebaseConfig = {
 	apiKey: "AIzaSyD9O2AQQLt_BewjHewrUBhmlBDukaw4ArY",
 	authDomain: "hackathon2020-498db.firebaseapp.com",
 	databaseURL: "https://hackathon2020-498db.firebaseio.com",
@@ -18,7 +19,9 @@ firebase.initializeApp({
 	messagingSenderId: "637374311684",
 	appId: "1:637374311684:web:be0b04ceb878a5131db451",
 	measurementId: "G-2DLHMCCWG3"
-});
+};
+
+firebase.initializeApp(firebaseConfig);
 
 
 const styles = (theme) =>
@@ -37,9 +40,9 @@ class MainComponent extends Component
 		//it is settable with this.setState({attribute: value})
 		//will only override attribute and no other attributes
 		this.state={
-
+			openHouse: null,
 			openPage: null,
-			page: (null)
+			page: null
 		}
 		
 		this.provider = new firebase.auth.GoogleAuthProvider();
@@ -48,21 +51,25 @@ class MainComponent extends Component
 	componentDidMount() {
 		this.setState({
 			openPage: 'MainPage',
-			page: (<MainPage switchPage={this.renderPage}/>)
+			page: (<MainPage setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)
 		})
+	}
+
+	setHouseID = (id) => {
+		this.setState({openHouse: id});
 	}
 
 	renderPage = (page) => {
 		switch(page)
 		{
 			case 'MainPage':
-				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPage setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 				return;
 			case 'MainPageAlt':
-				this.setState({page: (<MainPageAlt switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPageAlt setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 				return;
 			default:
-				this.setState({page: (<MainPage switchPage={this.renderPage}/>)});
+				this.setState({page: (<MainPage setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
 		}
 	}
 
