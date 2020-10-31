@@ -25,6 +25,11 @@ const styles = (theme) =>
 		},
 		buttonStyle: {
 			cursor: 'pointer'
+		},
+		hoverStyle: {
+			"&:hover":{
+				color: 'grey'
+			}
 		}
 	})
 
@@ -78,13 +83,13 @@ class MainPage extends Component
 							<h1>Trick or Tweet</h1>
 						</div>
 						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
-							<h2>Go to a random house</h2>
+							<h2 className={classes.hoverStyle}>Go to a random house</h2>
 						</div>
 						<div className={classes.buttonStyle}>
-							<h2>Post your house</h2>
+							<h2 className={classes.hoverStyle}>Post your house</h2>
 						</div>
 						<div className={classes.buttonStyle}>
-							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
+							<h3 style={{marginTop: '5em'}} className={classes.hoverStyle}>Setup Account</h3>
 						</div>
 					</div>
 				</header>
