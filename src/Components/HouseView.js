@@ -53,14 +53,16 @@ class HouseView extends Component {
     }
     addComment = () => {
         const newComment=this.state.value;
+        this.setState({value: ''})
         if(newComment.length > 0)
         {
             try {
                 const db = this.firebase.firestore()
-                const res = db.collection("house").document('ATwH5pTpJCNcXbUnazXZ').collection("Comments").add({
+                const res = db.collection("house").doc('ATwH5pTpJCNcXbUnazXZ').get().then(doc =>
+                {doc.collection("Comments").set({
                     text: newComment,
                     user: this.props.user.uid
-                });
+                })});
             }
             catch (e) {
                 console.log(e)
@@ -106,7 +108,7 @@ class HouseView extends Component {
                             <h>Carter</h>
                             <p>dumb house</p>
                         </tr>
-                        comments
+                        {comments}
                     </table>
                 </header>
             </div>
