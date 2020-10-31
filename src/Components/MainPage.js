@@ -63,8 +63,7 @@ class MainPage extends Component
 		const {classes,userHouse} = this.props;
 
 		return(
-					<div style={{height: '100%'}}>
-
+					<div className="peak" style={{height: '100%'}}>
 							<div className="content-body">
 							<div>
 								<h1>Haunter</h1>
