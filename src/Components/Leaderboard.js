@@ -57,7 +57,7 @@ class Leaderboard extends Component
     componentDidMount() {
         let users = []
         const db = this.props.firebase.firestore()
-        db.collection('User').get().orderBy("candyScore", "desc").limit(10).then((result) => {
+        db.collection('User').orderBy("candyScore", "desc").limit(10).get().then((result) => {
             result.forEach(doc => {users.push((<th>{doc.data().name + doc.data().candyScore}</th>))})
         });
         this.setState({users: users});
@@ -78,7 +78,7 @@ class Leaderboard extends Component
                     <div style={{position: 'absolute', top: 0}}>
                         <header className="App-header" >
                             <div style={{position: 'absolute', top: 0}}>
-                                <table style="width:100%">
+                                <table style={{width:'100%'}}>
 
                                     <tr>
                                         <th>Firstname</th>
