@@ -44,8 +44,8 @@ class MainPage extends Component
 	componentDidMount() {
 		let userTemp = [];
 		const db = this.props.firebase.firestore();
-		db.collection('User').get().then((result) => {
-			result.forEach((doc, i )=> {userTemp[i] = doc.data().id})
+		db.collection('house').get().then((result) => {
+			result.forEach((doc, i )=> {userTemp[i] = doc.id})
 		});
 		this.setState({userHouses: userTemp})
 	}
@@ -77,13 +77,13 @@ class MainPage extends Component
 						<div>
 							<h1>Trick or Tweet</h1>
 						</div>
-						<div style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
+						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
 							<h2>Go to a random house</h2>
 						</div>
-						<div>
+						<div className={classes.buttonStyle}>
 							<h2>Post your house</h2>
 						</div>
-						<div>
+						<div className={classes.buttonStyle}>
 							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
 						</div>
 					</div>
