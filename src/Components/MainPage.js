@@ -50,7 +50,7 @@ class MainPage extends Component
 
 	randomHouse =()=>{
 		const houses = this.state.userHouses;
-		this.props.switchPage('HousePage');
+		this.props.switchPage('HouseView');
 		this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
 	}
 
