@@ -60,12 +60,20 @@ class MainComponent extends Component
 		return(
 			<div className="App" style={{backgroundImage: background}}>
 				<header className="App-header" >
-					<img src={logo} className="App-logo" alt="logo" />
-					<p>
-						Hackaton Lite 2020 Project
-						<br/>
-						{this.state.names /* Squigly brackets allow for JS to be written in the return of the render function*/}
-					</p>
+					<div style={{position: 'absolute', top: 0}}>
+						<div>
+							<h1>Trick or Tweet</h1>
+						</div>
+						<div style={{marginTop: '10em'}}>
+							<h2>Go to a random house</h2>
+						</div>
+						<div>
+							<h2>Post your house</h2>
+						</div>
+						<div>
+							<h3 style={{marginTop: '5em'}}>Setup Account</h3>
+						</div>
+					</div>
 				</header>
 			</div>
 		)
