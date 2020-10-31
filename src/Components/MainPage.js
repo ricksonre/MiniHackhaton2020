@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
+import "../mainpage.css";
 import background from "../back.png";
 import {Button} from "@material-ui/core";
 
@@ -59,40 +60,34 @@ class MainPage extends Component
 
 	render()
 	{
-		//render is what will be called any time there is an update to the component
-		//only do things that are necessary here as it causes a performance hit
 		const {classes,userHouse} = this.props;
 
-		console.log();
-		//console.log(this.props.firebase.database().ref('Users/gVBmMWF7m7cD8IwUTqG3'))
-		//classes.styleSheetItem will give you the class from the style sheet
-		//className={classes.styleSheet} will assign a class to the style sheet to the component
 		return(
-	
-				<header className="App-header" >
-					<div style={{position: 'absolute', top: 0}}>
-						<div>
-							<h1>Trick or Tweet</h1>
-						</div>
-						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
-							<h2 className={classes.hoverStyle}>Go to a random house</h2>
-						</div>
-						{userHouse ? (<div className={classes.buttonStyle}>
-							<h2 className={classes.hoverStyle}>View your house</h2>
-						</div>) :
-							(
-								<div className={classes.buttonStyle}>
-									<h2 className={classes.hoverStyle}>Post your house</h2>
-								</div>
-							)
-						}
+					<div style={{height: '100%'}}>
 
-						<div className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
-							<h3 style={{marginTop: '5em'}} className={classes.hoverStyle}>Leaderboard</h3>
-						</div>
+							<div className="content-body">
+							<div>
+								<h1>Haunter</h1>
+							</div>
+							<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
+								<h2 className={classes.hoverStyle}>Go to a random house</h2>
+							</div>
+							{userHouse ? (<div className={classes.buttonStyle}>
+								<h2 className={classes.hoverStyle}>View your house</h2>
+							</div>) :
+								(
+									<div className={classes.buttonStyle}>
+										<h2 className={classes.hoverStyle}>Post your house</h2>
+									</div>
+								)
+							}
+
+							<div className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
+								<h3 style={{marginTop: '5em'}} className={classes.hoverStyle}>Leaderboard</h3>
+							</div>
+							</div>
 					</div>
-				</header>
-	
+
 		)
 	}
 
