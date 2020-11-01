@@ -63,6 +63,15 @@ class HouseView extends Component {
                     text: newComment,
                     user: this.props.user.uid,
                 });
+                res.then(() => {
+                    let comments =[]
+                    db.collection("house").doc(this.props.openHouse).collection('Comments').get().then((result) => {
+                        result.forEach(doc => {
+                            comments.push(<tr><h>{doc.data().user}</h><p>{doc.data().text}</p></tr>);
+                            this.setState({comments: comments});
+                        })
+                    });
+                })
             }
             catch (e) {
                 console.log(e)
