@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/MiniHackhaton2020/static/css/main.c4ab138e.chunk.css",
-    "main.js": "/MiniHackhaton2020/static/js/main.85e99d49.chunk.js",
-    "main.js.map": "/MiniHackhaton2020/static/js/main.85e99d49.chunk.js.map",
+    "main.js": "/MiniHackhaton2020/static/js/main.d958b6eb.chunk.js",
+    "main.js.map": "/MiniHackhaton2020/static/js/main.d958b6eb.chunk.js.map",
     "runtime-main.js": "/MiniHackhaton2020/static/js/runtime-main.4b81ae64.js",
     "runtime-main.js.map": "/MiniHackhaton2020/static/js/runtime-main.4b81ae64.js.map",
     "static/js/2.d176871a.chunk.js": "/MiniHackhaton2020/static/js/2.d176871a.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.4b81ae64.js",
     "static/js/2.d176871a.chunk.js",
     "static/css/main.c4ab138e.chunk.css",
-    "static/js/main.85e99d49.chunk.js"
+    "static/js/main.d958b6eb.chunk.js"
   ]
 }
