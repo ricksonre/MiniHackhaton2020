@@ -12,18 +12,9 @@ export default class handleImage
 	{
 		var storageRef = this.firebase.storage().ref();
 		var fileRef = storageRef.child(fileName);
-		fileRef.put(image.then(function(snapshot)
+		fileRef.put(image).then(function(snapshot)
 		{
-			console.log('uploaded image');
-		}))
+			console.log('uploaded image', snapshot);
+		})
 	}
-
-	downloadImage(fileName)
-	{
-		var storageRef = this.firebase.storage().ref();
-		storageRef.child('images/stars.jpg').getDownloadURL().then(result => {return result})
-
-	}
-
-
 }
