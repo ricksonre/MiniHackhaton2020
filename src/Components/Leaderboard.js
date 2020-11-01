@@ -60,8 +60,8 @@ class Leaderboard extends Component
 		
         let users = []
         const db = this.props.firebase.firestore()
-        db.collection('User').orderBy("candyScore", "desc").limit(5).get().then((result) => {
-            result.forEach(doc => {users.push((<th>{doc.data().name +" "+ doc.data().candyScore}</th>))})
+        db.collection('User').orderBy("candyScore", "desc").limit(6).get().then((result) => {
+            result.forEach(doc => {users.push((<tr style={{width:"390px"}}><th>{doc.data().name +" at "+ doc.data().candyScore+" Candies!"}</th></tr>))})
 			this.setState({users: users});
         });
 		
@@ -85,16 +85,14 @@ class Leaderboard extends Component
                 <header className="App-header" >
                     <div style={{position: 'absolute', top: 0}}>
                         <header className="App-header" >
-                            <div style={{position: 'absolute', top: 0}}>
-                                <table style={{width:'100%'}}>
+                            <div style={{marginLeft:"center",marginTop:"center"}}>
+                                <table style={{width:"400px",textAlign: "center"}}>
 									<tbody>
                                     <tr>
                                         <th>Leaderboard! Highest candy counts!</th>
                                     </tr>
-                                    <tr>
-                                        {users}
-
-                                    </tr>
+                                    <tr >
+                                        {users}</tr>
 									</tbody>
                                 </table>
                             </div>
