@@ -25,6 +25,14 @@ const styles = (theme) =>
 		}
 	})
 
+function isValid(obj)
+{
+	if (typeof obj == 'undefined' || obj == undefined || obj.length == 0)
+		return false;
+
+	return true;
+}
+
 class MainPage extends Component
 {
 	constructor(props)
@@ -45,13 +53,7 @@ class MainPage extends Component
 		}
 	}
 
-	isValid(obj)
-	{
-		if(typeof obj == 'undefined' || obj==undefined || obj.length == 0)
-			return false;
-
-		return true;
-	}
+	
 
 	componentDidMount()
 	{
@@ -59,6 +61,11 @@ class MainPage extends Component
 		const db = this.props.firebase.firestore();
 		db.collection("User").doc(this.props.userID).get().then(result =>
 		{
+			if(!isValid(result.data()))
+			{
+				return;
+			}
+
 			this.setState({houseImageURL: result.data().houseURL, avatarImageURL: result.data().avatar})
 		})
 		db.collection('house').get().then((result) =>
@@ -118,12 +125,14 @@ class MainPage extends Component
 	updateFirebase = () =>
 	{
 		const db = this.props.firebase.firestore();
-		db.collection("house").doc(this.props.user.houseID).update(
+		const user = this.props.user();
+
+		db.collection("house").doc(user.uid).update(
 			{
 				imageURL: this.state.houseImageURL,
 			}
 		);
-		db.collection("User").doc(this.props.user.id).update(
+		db.collection("User").doc(user.uid).update(
 			{
 				houseURL: this.state.houseImageURL,
 				avatar: this.state.avatarImageURL,
@@ -138,14 +147,7 @@ class MainPage extends Component
 		const user = this.props.user();
 		const {dialogOpen} = this.state;
 		const { houseImageURL, avatarImageURL} = this.state;
-		
-		
-		if(this.isValid(this.state.avatarImageURL))
-		{
-
-		}
-
-
+		 
 
 		return (
 			<div className="peak" style={{ height: '100%' }}>
@@ -183,8 +185,8 @@ class MainPage extends Component
 							</h4>
 
 							{
-								this.isValid(this.state.houseImageURL) ?
-									<img src={this.state.avatarImageURL}></img>
+								isValid(this.state.houseImageURL) ?
+									<img className="profile_image" src={this.state.houseImageURL} onClick={this.uploadHousePic}></img>
 									:
 									<div className="picture-subcontainer" onClick={this.uploadHousePic}>
 										<p>Upload Picture</p>
@@ -201,8 +203,8 @@ class MainPage extends Component
 							</h4>
 
 							{
-								this.isValid(this.state.avatarImageURL) ?
-									<img src={this.state.avatarImageURL}></img>
+								isValid(this.state.avatarImageURL) ?
+									<img className="profile_image" src={this.state.avatarImageURL} onClick={this.uploadUserPic}></img>
 									:
 									<div className="picture-subcontainer" onClick={this.uploadUserPic}>
 										<p>Upload Picture</p>

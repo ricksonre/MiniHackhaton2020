@@ -75,8 +75,18 @@ class LogInPage extends Component
 								avatar: null,
 								name: user["displayName"],
 								candyCount: 0,
-								houseID: null,
+								houseID: user["uid"],
 							});
+
+							db.collection('house').doc(user["uid"]).set(
+								{
+									"commentss": null,
+									'url': "",
+									'SpookyRating': user["displayName"],
+									'userID': user["uid"],
+									"imageURL": null,
+									"houseURL": null
+								});
 						}
 					});
 					that.props.switchPage("MainPage");
