@@ -67,6 +67,7 @@ class HouseView extends Component
                 }
                 catch (e) {
                     this.randomHouse();
+                    this.componentDidMount()
                 }
 
 
@@ -114,7 +115,7 @@ class HouseView extends Component
                 const db = this.props.firebase.firestore()
                 const user = this.props.user();
                 console.log(user.displayName)
-                const res = db.collection("house").doc(user.uid).collection("Comments").add({
+                const res = db.collection("house").doc(this.props.openHouse).collection("Comments").add({
                     text: newComment,
                     user: user.displayName,
                 });
