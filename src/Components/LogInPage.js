@@ -116,10 +116,10 @@ class LogInPage extends Component
 		
 		return(
 			<React.Fragment>
-			   <img src={back} style={{width: '100%', height: '100%'}} >
+			   <img src={back} style={{width: '100%', height: '100vh'}} >
 			   </img>
-			   <button style={{margin: '0 0 0 0 ', padding: '0 0 0 0', border: "0", background: 'none',
-							position: "fixed", left: "20%", top: "40%"}} 
+			   <button style={{margin: '0 0 0 0 ', padding: '0 0 0 0', border: "0", background: 'none', width: "35vh", height: "8vh",
+							position: "fixed", left: "20.75%", top: "35%"}} 
 						onClick={ ()=>{ this.gSignIn(); } }
 						onMouseDown={ ()=> { this.click_button(true); }}
 						onMouseUp={ ()=> { this.click_button(false); }}>
