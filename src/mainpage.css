@@ -17,7 +17,8 @@
 .userName
 {
 	text-align: left;
-	padding: 1em 2em 1em 2em;
+	margin: 1em .75em 1em 1em;
+	padding: 0em 0em 0em 0em;
 }
 
 .header
