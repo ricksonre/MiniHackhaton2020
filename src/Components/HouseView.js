@@ -112,9 +112,11 @@ class HouseView extends Component
             try
             {
                 const db = this.props.firebase.firestore()
-                const res = db.collection("house").doc(this.props.openHouse).collection("Comments").add({
+                const user = this.props.user();
+                console.log(user.displayName)
+                const res = db.collection("house").doc(user.uid).collection("Comments").add({
                     text: newComment,
-                    user: this.props.user.displayName,
+                    user: user.displayName,
                 });
                 res.then(() =>
                 {
@@ -127,6 +129,9 @@ class HouseView extends Component
                 console.log(e)
             }
         }
+
+        this.setState({doneGettingComs: false})
+        this.componentDidMount()
 
     }
 
