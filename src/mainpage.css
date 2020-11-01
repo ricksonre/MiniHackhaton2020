@@ -50,6 +50,7 @@ hr
 
 .picture-container 
 {
+	vertical-align: top;
 	display: inline-block;
 	margin: 0em 1em 1em 1em;
 	padding: 0em 1em 1em 1em;

@@ -93,19 +93,20 @@ class MainPage extends Component
 
 	uploadHousePic = () =>
 	{
-		this.setState({dialogOpen: true, uploadingHouse: true})
+		this.setState({ dialogOpen: true, uploadingHouse: true, uploadingAvatar: false})
 
 	}
 
 	uploadUserPic = () =>
 	{
-		this.setState({dialogOpen: true, uploadingAvatar: true})
+		this.setState({ dialogOpen: true, uploadingAvatar: true, uploadingHouse: false})
 	}
 
 	handleFileChange =(files) =>
 	{
 		let handleImage = new HandleImage(firebase);
 		this.setState({files: files, open: false})
+
 		this.state.uploadingHouse ?
 			handleImage.uploadImage(files[0], this.props.userID + 'house'):
 			handleImage.uploadImage(files[0], this.props.userID + 'avatar')
@@ -113,14 +114,16 @@ class MainPage extends Component
 		var storageRef = this.props.firebase.storage().ref();
 
 		storageRef.child(this.props.userID + (this.state.uploadingHouse ? 'house' : 'avatar')).getDownloadURL().then(result =>
-		{this.state.uploadingHouse ?
-			this.setState({houseImageURL: result})
-		:
-			this.setState({avatarImageURL: result});
+		{
+
+			if (this.state.uploadingHouse && !this.state.uploadingHouseAvatar)
+				this.setState({"houseImageURL" : result});
+			else if (!this.state.uploadingHouse && this.state.uploadingHouseAvatar)
+				this.setState({ "avatarImageURL": result });
+
 			this.updateFirebase();
-		})
-		this.setState({uploadingAvatar: false, uploadingHouse: false})
-	}
+		});
+	} 
 
 	updateFirebase = () =>
 	{

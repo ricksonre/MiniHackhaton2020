@@ -10,6 +10,7 @@ export default class handleImage
 
 	uploadImage(image, fileName)
 	{
+
 		var storageRef = this.firebase.storage().ref();
 		var fileRef = storageRef.child(fileName);
 		fileRef.put(image).then(function(snapshot)
