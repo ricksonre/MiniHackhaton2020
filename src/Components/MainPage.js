@@ -75,7 +75,7 @@ class MainPage extends Component
 			<div className="peak" style={{ height: '100%' }}>
 				<div className="content-body">
 					<div className="header">
-						<span className={classes.buttonStyle}>
+						<span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
 							My Home
 									</span>
 						<span className={classes.buttonStyle}>
@@ -92,6 +92,43 @@ class MainPage extends Component
 					<div>
 						<h1 className="userName">{user["displayName"]}</h1>
 					</div>
+
+					<div className="pictures-container">
+
+						<div className="picture-container">
+							<h4>
+								House Picture
+							</h4>
+
+							<div className="picture-subcontainer">
+								<p>Upload Picture</p>
+							</div>
+
+						</div>
+							
+						<div className="picture-container">
+
+							<h4>
+								My Picture
+							</h4>
+
+							<div className="picture-subcontainer">
+								<p>Upload Picture</p>
+							</div>
+
+						</div>
+
+
+					</div>
+
+					<div>
+						<h4>My House Description:</h4>
+						<input></input>
+						<button>Post</button>
+					</div>
+
+
+					<hr></hr>
 
 				</div>
 			</div>

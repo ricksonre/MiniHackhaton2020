@@ -17,7 +17,7 @@
 .userName
 {
 	text-align: left;
-	margin: 1em .75em 1em 1em;
+	margin: 1em .75em 0.5em 1em;
 	padding: 0em 0em 0em 0em;
 }
 
@@ -30,4 +30,29 @@
 .header span
 {
 	padding: 0.25em 0.75em 0.25em 0.75em;
+}
+
+hr
+{
+	width: 95%;
+}
+
+.picture-container 
+{
+	display: inline-block;
+	margin: 0em 1em 1em 1em;
+	padding: 0em 1em 1em 1em;
+}
+
+.picture-subcontainer 
+{
+	border: 1px solid white;
+	height: 5em;
+}
+
+.picture-subcontainer p
+{
+	padding: 0.25em 0.25em 0.25em 0.25em;
+	vertical-align: middle;
+
 }
