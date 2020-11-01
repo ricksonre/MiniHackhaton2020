@@ -6,6 +6,8 @@ import "../mainpage.css";
 import background from "../back.png";
 import { Button } from "@material-ui/core";
 import HandleImage from "../Helpers/HandleImage.js";
+import {DropzoneDialog} from "material-ui-dropzone";
+import handleImage from "../Helpers/HandleImage.js";
 
 const styles = (theme) =>
 	({
@@ -34,6 +36,11 @@ class MainPage extends Component
 		this.state = {
 			showHidden: false,
 			userHouses: [],
+			files: [],
+			dialogOpen: false,
+			uploadingHouse: false,
+			uploadingAvatar: false,
+			houseImageURL: null,
 		}
 	}
 
@@ -64,15 +71,47 @@ class MainPage extends Component
 		this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
 	}
 
+	uploadHousePic = () =>
+	{
+		this.setState({dialogOpen: true, uploadingHouse: true})
+
+	}
+
+	uploadUserPic = () =>
+	{
+		this.setState({dialogOpen: true, uploadingAvatar: true})
+	}
+
+	handleFileChange =(files) =>
+	{
+		let handleImage = new HandleImage(firebase);
+		this.setState({files: files, open: false})
+		this.state.uploadingHouse ?
+			handleImage.uploadImage(files[0], this.props.userID + 'house')
+		:
+			handleImage.uploadImage(files[0], this.props.userID + 'avatar')
+
+		var storageRef = this.firebase.storage().ref();
+		storageRef.child(this.props.userID + 'house').getDownloadURL().then(result => {this.setState({houseImageURL: result})})
+		this.setState({uploadingAvatar: false, uploadingHouse: false})
+	}
+
 	render()
 	{
 		const { classes, userHouse } = this.props;
 		const user = this.props.user();
+		const {dialogOpen} = this.state;
 
 		console.log(user)
 
 		return (
 			<div className="peak" style={{ height: '100%' }}>
+				<DropzoneDialog
+					open={dialogOpen}
+					onSave={this.handleFileChange}
+					acceptedFiles={['image/jpeg']}
+					onClose={() => this.setState({dialogOpen: false})}
+					filesLimit={1}/>
 				<div className="content-body">
 					<div className="header">
 						<span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
@@ -100,7 +139,7 @@ class MainPage extends Component
 								House Picture
 							</h4>
 
-							<div className="picture-subcontainer">
+							<div className="picture-subcontainer" onClick={this.uploadHousePic}>
 								<p>Upload Picture</p>
 							</div>
 
@@ -112,7 +151,7 @@ class MainPage extends Component
 								My Picture
 							</h4>
 
-							<div className="picture-subcontainer">
+							<div className="picture-subcontainer" onClick={this.uploadUserPic}>
 								<p>Upload Picture</p>
 							</div>
 

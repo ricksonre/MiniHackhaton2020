@@ -48,6 +48,7 @@ hr
 {
 	border: 1px solid white;
 	height: 5em;
+	cursor: pointer;
 }
 
 .picture-subcontainer p
