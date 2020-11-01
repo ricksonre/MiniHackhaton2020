@@ -24,6 +24,7 @@ class HouseView extends Component {
             comments: null,
             HousePic: null,
             value: '',
+            userHouses: null,
         }
         //this.state is accessible with this.state.attribute
         //it is settable with this.setState({attribute: value})
@@ -34,7 +35,13 @@ class HouseView extends Component {
         const db = this.props.firebase.firestore();
         let comments = [];
         let housePic = [];
-        console.log(this.state.openHouse)
+        let userTemp=[];
+        console.log(this.props.openHouse)
+        db.collection('house').get().then((result) =>
+        {
+            result.forEach((doc, i) => { userTemp.push(doc.id) })
+            this.setState({ userHouses: userTemp })
+        });
         db.collection("house").doc(this.props.openHouse).collection('Comments').get().then((result) => {
             result.forEach(doc => {
                 comments.push(<tr><h>{doc.data().user}</h><p>{doc.data().text}</p></tr>);
@@ -62,7 +69,7 @@ class HouseView extends Component {
                 const db = this.props.firebase.firestore()
                 const res = db.collection("house").doc(this.props.openHouse).collection("Comments").add({
                     text: newComment,
-                    user: this.props.user.uid,
+                    user: this.props.user.displayName,
                 });
                 res.then(() => {
                     let comments =[]
@@ -78,6 +85,12 @@ class HouseView extends Component {
                 console.log(e)
             }
         }
+    }
+
+    randomHouse = () =>
+    {
+        const houses = this.state.userHouses;
+        this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
     }
 
     handleChange = (event) =>
@@ -97,6 +110,17 @@ class HouseView extends Component {
         return(
             <div className="App" style={{backgroundImage: background}}>
                 <header className="App-header" >
+                    <div className="header" style={{position: 'absolute', top: 0, width: '100%'}}>
+						<span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
+							My Home
+									</span>
+                        <span className={classes.buttonStyle} style={{ marginTop: '10em' }} onClick={() => this.randomHouse()}>
+							Visit Homes
+								</span>
+                        <span className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
+							Leaderboard
+									</span>
+                    </div>
                     <img src = "House URL HERE" />
                     <img src = "Avata URL HERE"/>
                     <table>
