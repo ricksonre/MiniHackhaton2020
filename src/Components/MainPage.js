@@ -123,6 +123,7 @@ class MainPage extends Component
 
 			this.updateFirebase();
 
+			this.props.switchPage("HouseView");
 			this.props.switchPage("MainPage");
 		});
 	} 
