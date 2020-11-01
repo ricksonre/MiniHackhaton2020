@@ -107,15 +107,25 @@ hr
 
 .comments_container
 {
-	border-radius: 5em;
+	border-radius: 3em;
 	width: 85%;
 	background-color: #262729;
-	min-width: 50vh;
-	margin-left: 7.5%;
+	min-height: 75vh;
+    padding: 1em 1em 1em 1em;
+    margin-left:  5.5% ;
 }
 
 .profile_image
 {
 	max-width: 50vh;
 	max-height: 50vh;
+}
+
+.comment
+{
+    background-color: #373a40;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    padding: 0.25em 0.25em 0.25em 0.25em;
+    border-radius: 15px;
+
 }
