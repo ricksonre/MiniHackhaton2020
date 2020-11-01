@@ -34,6 +34,7 @@ class HouseView extends Component {
         const db = this.props.firebase.firestore();
         let comments = [];
         let housePic = [];
+        console.log(this.state.openHouse)
         db.collection("house").doc(this.props.openHouse).collection('Comments').get().then((result) => {
             result.forEach(doc => {
                 comments.push(<tr><h>{doc.data().user}</h><p>{doc.data().text}</p></tr>);

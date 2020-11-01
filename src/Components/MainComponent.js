@@ -70,7 +70,9 @@ class MainComponent extends Component
 	}
 
 	setHouseID = (id) => {
-		this.setState({openHouse: id});
+		console.log(id)
+		this.houseID = id;
+		this.renderPage('HouseView')
 	}
 
 	renderPage = (page) => {
@@ -86,7 +88,7 @@ class MainComponent extends Component
 				this.setState({page: (<LogInPage provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			case 'HouseView':
-				this.setState({page: (<HouseView openHouse={this.state.openHouse} setHouseID={this.setHouseID} comments={[]} provider={this.provider} firebase={firebase} user={this.user} switchPage={this.renderPage}/>)});
+				this.setState({page: (<HouseView openHouse={this.houseID} setHouseID={this.setHouseID} comments={[]} provider={this.provider} firebase={firebase} user={this.user} switchPage={this.renderPage}/>)});
 				return;
 			case 'Leaderboard':
 				this.setState({page: (<Leaderboard firebase={firebase} switchPage={this.renderPage}/>)});

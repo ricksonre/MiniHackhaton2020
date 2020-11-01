@@ -70,7 +70,7 @@ class MainPage extends Component
 		})
 		db.collection('house').get().then((result) =>
 		{
-			result.forEach((doc, i) => { userTemp[i] = doc.id })
+			result.forEach((doc, i) => { userTemp.push(doc.id) })
 			this.setState({ userHouses: userTemp })
 		});
 		db.collection('User').doc(this.props.userID).get().then(result =>
@@ -87,7 +87,6 @@ class MainPage extends Component
 	randomHouse = () =>
 	{
 		const houses = this.state.userHouses;
-		this.props.switchPage('HouseView');
 		this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
 	}
 
@@ -168,11 +167,8 @@ class MainPage extends Component
 						<span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
 							My Home
 									</span>
-						<span className={classes.buttonStyle}>
-							Visit Homes
-									</span>
 						<span className={classes.buttonStyle} style={{ marginTop: '10em' }} onClick={() => this.randomHouse()}>
-							Random Home
+							Visit Homes
 								</span>
 						<span className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
 							Leaderboard
