@@ -3,7 +3,7 @@
 {
 	background-color: #373a40;
 	width: 65%;
-	height: 100vh;
+	height: 110vh;
 	color: White;
 	margin-left: 17.5%;
 	margin-right: 17.5%;
@@ -55,4 +55,37 @@ hr
 	padding: 0.25em 0.25em 0.25em 0.25em;
 	vertical-align: middle;
 
+}
+
+.description-box
+{
+	width: 85%;
+	height: 10ch;
+	border-radius: 2em;
+	padding: 1em 4em 1em 1em;
+}
+
+.description-container
+{
+ 	width: 100%;
+}
+
+.description-container button
+{
+	text-align: right;
+	border-radius: 1em;
+	box-shadow: 0 0 0 2px solid white;
+	padding: 0.25em 0.5em 0.25em 0.5em;
+	border: 4px solid #17181a;
+	float: right;
+	margin: 1em 1em 1em 1em;
+}
+
+.comments_container
+{
+	border-radius: 5em;
+	width: 85%;
+	background-color: #17181a;
+	height: 50vh;
+	margin-left: 7.5%;
 }
