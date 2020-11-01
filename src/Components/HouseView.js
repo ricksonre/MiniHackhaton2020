@@ -45,7 +45,6 @@ class HouseView extends Component
     }
     componentDidMount()
     {
-        this.setState({ doneGettingCom: false });
         const db = this.props.firebase.firestore();
         let comments = [];
         let housePic = [];
