@@ -125,8 +125,10 @@ class HouseView extends Component {
 							Leaderboard
 									</span>
                     </div>
-                    <img src = "House URL HERE" />
-                    <img src = "Avata URL HERE"/>
+                    <div style={{ marginTop: '10em'}}>
+                        <img src = "House URL HERE" />
+                        <img src = "Avata URL HERE"/>
+                    </div>
                     <table>
                         <tr>
                     <div style={{marginTop: '10em'}}>
