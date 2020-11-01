@@ -84,7 +84,13 @@ class Leaderboard extends Component
             <div className="App" style={{backgroundImage: background}}>
                 <header className="App-header" >
                     <div style={{position: 'absolute', top: 0}}>
+                        <div className="header" style={{top:"50px"}}>
+						            <span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
+                                        My Home
+									</span>
+                        </div>
                         <header className="App-header" >
+
                             <div style={{marginLeft:"center",marginTop:"center"}}>
                                 <table style={{width:"400px",textAlign: "center"}}>
 									<tbody>
