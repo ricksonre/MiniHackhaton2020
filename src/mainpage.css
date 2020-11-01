@@ -19,3 +19,14 @@
 	text-align: left;
 	padding: 1em 2em 1em 2em;
 }
+
+.header
+{
+	background-color: #292a2e;
+	padding: 0.5em 0em 0.5em 0em;
+}
+
+.header span
+{
+	padding: 0.25em 0.75em 0.25em 0.75em;
+}

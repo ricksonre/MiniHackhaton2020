@@ -74,22 +74,19 @@ class MainPage extends Component
 		return (
 			<div className="peak" style={{ height: '100%' }}>
 				<div className="content-body">
-					<div>
-						<h2>
-							<span>
-								My Home
+					<div className="header">
+						<span className={classes.buttonStyle}>
+							My Home
 									</span>
-							<span>
-								Visit Homes
+						<span className={classes.buttonStyle}>
+							Visit Homes
 									</span>
-							<span className={classes.buttonStyle} style={{ marginTop: '10em' }} onClick={() => this.randomHouse()}>
-								Random Home
+						<span className={classes.buttonStyle} style={{ marginTop: '10em' }} onClick={() => this.randomHouse()}>
+							Random Home
 								</span>
-							<span className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
-								Leaderboard
+						<span className={classes.buttonStyle} onClick={() => this.props.switchPage('Leaderboard')}>
+							Leaderboard
 									</span>
-
-						</h2>
 					</div>
 
 					<div>
