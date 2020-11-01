@@ -53,7 +53,7 @@ class MainPage extends Component
 
 	randomHouse =()=>{
 		const houses = this.state.userHouses;
-		this.props.switchPage('HousePage');
+		this.props.switchPage('HouseView');
 		this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
 	}
 
@@ -73,7 +73,7 @@ class MainPage extends Component
 						<div>
 							<h1>Trick or Tweet</h1>
 						</div>
-						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse()}>
+						<div className={classes.buttonStyle} style={{marginTop: '10em'}} onClick={() => this.randomHouse}>
 							<h2 className={classes.hoverStyle}>Go to a random house</h2>
 						</div>
 						{userHouse ? (<div className={classes.buttonStyle}>
