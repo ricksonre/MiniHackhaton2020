@@ -93,14 +93,19 @@ class MainPage extends Component
 			handleImage.uploadImage(files[0], this.props.userID + 'avatar')
 
 		var storageRef = this.props.firebase.storage().ref();
-		storageRef.child(this.props.userID + this.state.uploadingHouse ? 'house' : 'avatar').getDownloadURL().then(result =>
+		storageRef.child(this.props.userID + (this.state.uploadingHouse ? 'house' : 'avatar')).getDownloadURL().then(result =>
 		{this.state.uploadingHouse ?
 			this.setState({houseImageURL: result})
 		:
 			this.setState({avatarImageURL: result});
-
+			this.updateFirebase();
 		})
 		this.setState({uploadingAvatar: false, uploadingHouse: false})
+	}
+
+	updateFirebase = () =>
+	{
+		const db = this.props.firebase.firestore();
 	}
 
 	render()
