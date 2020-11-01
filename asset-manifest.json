@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/ricksonre/MiniHackhaton2020/static/css/main.f2d36b79.chunk.css",
-    "main.js": "/ricksonre/MiniHackhaton2020/static/js/main.85e99d49.chunk.js",
-    "main.js.map": "/ricksonre/MiniHackhaton2020/static/js/main.85e99d49.chunk.js.map",
-    "runtime-main.js": "/ricksonre/MiniHackhaton2020/static/js/runtime-main.8453be22.js",
-    "runtime-main.js.map": "/ricksonre/MiniHackhaton2020/static/js/runtime-main.8453be22.js.map",
-    "static/js/2.3172f0f2.chunk.js": "/ricksonre/MiniHackhaton2020/static/js/2.3172f0f2.chunk.js",
-    "static/js/2.3172f0f2.chunk.js.map": "/ricksonre/MiniHackhaton2020/static/js/2.3172f0f2.chunk.js.map",
-    "static/js/3.4ec01e5f.chunk.js": "/ricksonre/MiniHackhaton2020/static/js/3.4ec01e5f.chunk.js",
-    "static/js/3.4ec01e5f.chunk.js.map": "/ricksonre/MiniHackhaton2020/static/js/3.4ec01e5f.chunk.js.map",
-    "index.html": "/ricksonre/MiniHackhaton2020/index.html",
-    "static/css/main.f2d36b79.chunk.css.map": "/ricksonre/MiniHackhaton2020/static/css/main.f2d36b79.chunk.css.map",
-    "static/js/2.3172f0f2.chunk.js.LICENSE.txt": "/ricksonre/MiniHackhaton2020/static/js/2.3172f0f2.chunk.js.LICENSE.txt",
-    "static/media/mainpage.css": "/ricksonre/MiniHackhaton2020/static/media/back.e1276a17.png",
-    "static/media/logo.103b5fa1.svg": "/ricksonre/MiniHackhaton2020/static/media/logo.103b5fa1.svg",
-    "static/media/ttest.2e4c84bf.png": "/ricksonre/MiniHackhaton2020/static/media/ttest.2e4c84bf.png"
+    "main.css": "/MiniHackhaton2020/static/css/main.c4ab138e.chunk.css",
+    "main.js": "/MiniHackhaton2020/static/js/main.85e99d49.chunk.js",
+    "main.js.map": "/MiniHackhaton2020/static/js/main.85e99d49.chunk.js.map",
+    "runtime-main.js": "/MiniHackhaton2020/static/js/runtime-main.4b81ae64.js",
+    "runtime-main.js.map": "/MiniHackhaton2020/static/js/runtime-main.4b81ae64.js.map",
+    "static/js/2.d176871a.chunk.js": "/MiniHackhaton2020/static/js/2.d176871a.chunk.js",
+    "static/js/2.d176871a.chunk.js.map": "/MiniHackhaton2020/static/js/2.d176871a.chunk.js.map",
+    "static/js/3.4ec01e5f.chunk.js": "/MiniHackhaton2020/static/js/3.4ec01e5f.chunk.js",
+    "static/js/3.4ec01e5f.chunk.js.map": "/MiniHackhaton2020/static/js/3.4ec01e5f.chunk.js.map",
+    "index.html": "/MiniHackhaton2020/index.html",
+    "static/css/main.c4ab138e.chunk.css.map": "/MiniHackhaton2020/static/css/main.c4ab138e.chunk.css.map",
+    "static/js/2.d176871a.chunk.js.LICENSE.txt": "/MiniHackhaton2020/static/js/2.d176871a.chunk.js.LICENSE.txt",
+    "static/media/mainpage.css": "/MiniHackhaton2020/static/media/back.e1276a17.png",
+    "static/media/logo.103b5fa1.svg": "/MiniHackhaton2020/static/media/logo.103b5fa1.svg",
+    "static/media/ttest.2e4c84bf.png": "/MiniHackhaton2020/static/media/ttest.2e4c84bf.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.8453be22.js",
-    "static/js/2.3172f0f2.chunk.js",
-    "static/css/main.f2d36b79.chunk.css",
+    "static/js/runtime-main.4b81ae64.js",
+    "static/js/2.d176871a.chunk.js",
+    "static/css/main.c4ab138e.chunk.css",
     "static/js/main.85e99d49.chunk.js"
   ]
 }
