@@ -219,7 +219,7 @@ class MainPage extends Component
 							
 
 						</div>
-
+						<h4>If you image does not update when you upload it please refresh the page</h4>
 
 					</div>
 
