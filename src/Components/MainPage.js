@@ -160,14 +160,22 @@ class MainPage extends Component
 
 					</div>
 
-					<div>
+					<div className="description-container">
 						<h4>My House Description:</h4>
-						<input></input>
-						<button>Post</button>
+						<textarea className="description-box" type=""></textarea>
+						<br></br>
+						<button>Update</button>
 					</div>
 
 
 					<hr></hr>
+
+					<div>
+						<h4>Comments:</h4>
+						<div className="comments_container">
+
+						</div>
+					</div>
 
 				</div>
 			</div>
