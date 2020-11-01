@@ -5,6 +5,7 @@ import firebase, {initializeApp} from 'firebase';
 
 import MainPage from './MainPage';
 import MainPageAlt from "./MainPageAlt";
+import Leaderboard from "./Leaderboard";
 import LogInPage from "./LogInPage";
 import HouseView from "./HouseView"
 
@@ -86,6 +87,9 @@ class MainComponent extends Component
 				return;
 			case 'HouseView':
 				this.setState({page: (<HouseView openHouse={this.state.openHouse} setHouseID={this.setHouseID} comments={[]} provider={this.provider} firebase={firebase} user={this.user} switchPage={this.renderPage}/>)});
+				return;
+			case 'Leaderboard':
+				this.setState({page: (<Leaderboard firebase={firebase} switchPage={this.renderPage}/>)});
 				return;
 			default:
 				this.setState({page: (<MainPage userID={this.user.uid} user={this.userData}  setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
