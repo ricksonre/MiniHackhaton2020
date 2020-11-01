@@ -25,6 +25,7 @@ class HouseView extends Component {
             HousePic: null,
             value: '',
             userHouses: null,
+            doneGettingComs: false,
         }
         //this.state is accessible with this.state.attribute
         //it is settable with this.setState({attribute: value})
@@ -47,6 +48,7 @@ class HouseView extends Component {
                 comments.push(<tr><h>{doc.data().user}</h><p>{doc.data().text}</p></tr>);
                 this.setState({comments: comments});
             })
+            this.setState({doneGettingComs: true})
         });
 
         db.collection("User").doc('ATwH5pTpJCNcXbUnazXZ').get().then((result) => {
@@ -62,6 +64,7 @@ class HouseView extends Component {
     addComment = (event) => {
         event.preventDefault();
         const newComment=this.state.value;
+        let coms = this.state.comments;
         this.setState({value: ''})
         if(newComment.length > 0)
         {
@@ -72,25 +75,22 @@ class HouseView extends Component {
                     user: this.props.user.displayName,
                 });
                 res.then(() => {
-                    let comments =[]
-                    db.collection("house").doc(this.props.openHouse).collection('Comments').get().then((result) => {
-                        result.forEach(doc => {
-                            comments.push(<tr><h>{doc.data().user}</h><p>{doc.data().text}</p></tr>);
-                            this.setState({comments: comments});
-                        })
-                    });
+                    this.props.switchPage('MainPage');
+                    this.props.switchPage('HouseView');
                 })
             }
             catch (e) {
                 console.log(e)
             }
         }
+
     }
 
     randomHouse = () =>
     {
         const houses = this.state.userHouses;
         this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
+
     }
 
     handleChange = (event) =>
@@ -104,8 +104,12 @@ class HouseView extends Component {
         //only do things that are necessary here as it causes a performance hit
         const {classes} = this.props;
         const {comments} = this.state;
+        console.log(comments)
         //classes.styleSheetItem will give you the class from the style sheet
         //className={classes.styleSheet} will assign a class to the style sheet to the component
+
+        if(!this.state.doneGettingComs)
+        {return(<div/>)}
 
         return(
             <div className="App" style={{backgroundImage: background}}>
