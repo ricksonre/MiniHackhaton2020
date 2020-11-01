@@ -49,19 +49,23 @@ class HouseView extends Component {
         let userTemp=[];
         const user = this.props.user();
 
-        db.collection("User").doc(user.uid).get().then((data)=>
-        {
 
-            let houseURL = data.data()["houseURL"];
-            let AvatarURL = data.data()["avatar"];
-
-            this.setState({houseURL: houseURL, avatarURL: AvatarURL});
-        })
 
         db.collection('house').get().then((result) =>
         {
             result.forEach((doc, i) => { userTemp.push(doc.id) })
             this.setState({ userHouses: userTemp })
+            db.collection("User").doc(this.props.openHouse).get().then((data)=>
+            {
+
+                let houseURL = data.data()["houseURL"];
+                let AvatarURL = data.data()["avatar"];
+
+                if(houseURL === undefined || AvatarURL === undefined)
+                    this.randomHouse();
+
+                this.setState({houseURL: houseURL, avatarURL: AvatarURL});
+            })
         });
         db.collection("house").doc(this.props.openHouse).collection('Comments').get().then((result) => {
             result.forEach(doc => {
@@ -108,8 +112,10 @@ class HouseView extends Component {
 
     randomHouse = () =>
     {
+        this.setState({doneGettingComs: false})
         const houses = this.state.userHouses;
         this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
+        this.componentDidMount();
 
     }
 
@@ -125,6 +131,7 @@ class HouseView extends Component {
 
         const db = this.props.firebase.firestore();
         db.collection('User').doc(this.props.openHouse).get().then(result => {
+
             const likes = result.data().candyCount +1;
             db.collection('User').doc(this.props.openHouse).update({
                 candyCount: likes,
@@ -205,7 +212,7 @@ class HouseView extends Component {
                     </div>
 
 
-                    <Button style={{ backgroundColor: 'white', marginTop: '5em' }} onClick={() => this.addLike}>
+                    <Button style={{ backgroundColor: 'white', marginTop: '5em' }} onClick={() => this.addLike()}>
                     Give this house a candy!
                     </Button>
                     <table>
