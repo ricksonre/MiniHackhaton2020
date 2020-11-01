@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import logo from "../logo.svg";
 import firebase from 'firebase';
 import background from "../back.png";
-import {Button} from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import "../homeview.css";
 
 
 
@@ -21,15 +22,16 @@ const styles = (theme) =>
 
 class Leaderboard extends Component
 {
-    constructor(props) {
+    constructor(props)
+    {
         super(props);
         //this.state is accessible with this.state.attribute
         //it is settable with this.setState({attribute: value})
         //will only override attribute and no other attributes
-        this.state={
+        this.state = {
             names: 'Carter, Ren, Aedan, Rick',
             showHidden: false,
-            users:null,
+            users: null,
         }
     }
 
@@ -45,27 +47,31 @@ class Leaderboard extends Component
 
     }
 
-    toggleShow = () => {
-        this.setState({showHidden: ! this.state.showHidden})
+    toggleShow = () =>
+    {
+        this.setState({ showHidden: !this.state.showHidden })
     }
 
-    pageSwitch = (page) => {
+    pageSwitch = (page) =>
+    {
         console.log("WHYYYYYYYYYYYYYY")
         console.log(page)
         this.props.switchPage(page)
     }
-    componentDidMount() {
-		
-		console.log(1);
-		
+    componentDidMount()
+    {
+
+        console.log(1);
+
         let users = []
         const db = this.props.firebase.firestore()
-        db.collection('User').orderBy("candyCount", "desc").limit(4).get().then((result) => {
-            result.forEach(doc => {users.push((<tr style={{width:"390px"}}><th>{doc.data().name +" at "+ doc.data().candyCount+" Candies!"}</th></tr>))});
-			this.setState({users: users});
+        db.collection('User').orderBy("candyCount", "desc").limit(4).get().then((result) =>
+        {
+            result.forEach(doc => { users.push((<div className="comment"><h4>{doc.data().name}</h4><p>{doc.data().candyCount + " Candies!"}</p></div>)) });
+            this.setState({ users: users });
         });
 
-        this.setState({users: users});
+        this.setState({ users: users });
 
     }
 
@@ -73,39 +79,31 @@ class Leaderboard extends Component
     {
         //render is what will be called any time there is an update to the component
         //only do things that are necessary here as it causes a performance hit
-        const {classes} = this.props;
-        const {users} = this.state;
-		
-		console.log(this.state);
-		
+        const { classes } = this.props;
+        const { users } = this.state;
+
+        console.log(this.state);
+
         //classes.styleSheetItem will give you the class from the style sheet
         //className={classes.styleSheet} will assign a class to the style sheet to the component
-        return(
-            <div className="App" style={{backgroundImage: background}}>
-                <header className="App-header" >
-                    <div style={{position: 'absolute', top: 0}}>
-                        <div className="header" style={{top:"50px"}}>
-						            <span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
-                                        My Home
-									</span>
-                        </div>
-                        <header className="App-header" >
+        return (
+            <div className="peak" style={{ height: '100%' }}>
+                <div className="content-body">
 
-                            <div style={{marginLeft:"center",marginTop:"center"}}>
-                                <table style={{width:"400px",textAlign: "center"}}>
-									<tbody>
-                                    <tr>
-                                        <th>Leaderboard! Highest candy counts!</th>
-                                    </tr>
-                                    <tr >
-                                        {users}</tr>
-									</tbody>
-                                </table>
-                            </div>
-                        </header>
+                    <div className="header">
+                        <span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
+                            My Home
+									</span>
                     </div>
-                </header>
+
+                    <h3>Leaderboard! Highest candy counts!</h3>
+                    <div className="comments_container">
+                        {users}
+                    </div>
+                </div>
+
             </div>
+
         )
     }
 
