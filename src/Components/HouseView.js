@@ -98,6 +98,17 @@ class HouseView extends Component {
         this.setState({value: event.target.value})
     }
 
+    addLike =()=>
+    {
+        const db = this.props.firebase.firestore();
+        db.collection('User').doc(this.props.openHouse).get().then(result => {
+            const likes = result.data().candyCount +1;
+            db.collection('User').doc(this.props.openHouse).update({
+                candyCount: likes,
+            })
+        })
+    }
+
     render()
     {
         //render is what will be called any time there is an update to the component
@@ -129,6 +140,9 @@ class HouseView extends Component {
                         <img src = "House URL HERE" />
                         <img src = "Avata URL HERE"/>
                     </div>
+                    <Button style={{backgroundColor: 'white', marginTop: '5em'}} onClick={() => this.addLike}>
+                        Like this house
+                    </Button>
                     <table>
                         <tr>
                     <div style={{marginTop: '10em'}}>
