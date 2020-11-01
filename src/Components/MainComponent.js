@@ -88,10 +88,10 @@ class MainComponent extends Component
 				this.setState({page: (<LogInPage provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			case 'HouseView':
-				this.setState({page: (<HouseView openHouse={this.houseID} setHouseID={this.setHouseID} comments={[]} provider={this.provider} firebase={firebase} user={this.user} switchPage={this.renderPage}/>)});
+				this.setState({page: (<HouseView openHouse={this.houseID} setHouseID={this.setHouseID} comments={[]} provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			case 'Leaderboard':
-				this.setState({page: (<Leaderboard firebase={firebase} switchPage={this.renderPage}/>)});
+				this.setState({ page: (<Leaderboard firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
 				return;
 			default:
 				this.setState({page: (<MainPage userID={this.user.uid} user={this.userData}  setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
