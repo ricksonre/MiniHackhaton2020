@@ -41,6 +41,7 @@ class MainPage extends Component
 			uploadingHouse: false,
 			uploadingAvatar: false,
 			houseImageURL: null,
+			avatarImageURL: null,
 		}
 	}
 
@@ -92,7 +93,12 @@ class MainPage extends Component
 			handleImage.uploadImage(files[0], this.props.userID + 'avatar')
 
 		var storageRef = this.firebase.storage().ref();
-		storageRef.child(this.props.userID + 'house').getDownloadURL().then(result => {this.setState({houseImageURL: result})})
+		storageRef.child(this.props.userID + this.state.uploadingHouse ? 'house' : 'avatar').getDownloadURL().then(result =>
+		{this.state.uploadingHouse ?
+			this.setState({houseImageURL: result})
+		:
+			this.setState({avatarImageURL: result})
+		})
 		this.setState({uploadingAvatar: false, uploadingHouse: false})
 	}
 
