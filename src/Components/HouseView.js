@@ -5,6 +5,7 @@ import firebase from 'firebase';
 import background from "../back.png";
 import {Button} from "@material-ui/core";
 import MainPage from "./MainPage";
+import "../homeview.css";
 
 const styles = (theme) =>
     ({
@@ -16,6 +17,14 @@ const styles = (theme) =>
             cursor: 'pointer'
         }
     })
+
+function isValid(obj)
+{
+    if (typeof obj == 'undefined' || obj == undefined || obj.length == 0)
+        return false;
+
+    return true;
+}
 
 class HouseView extends Component {
     constructor(props) {
@@ -37,7 +46,17 @@ class HouseView extends Component {
         let comments = [];
         let housePic = [];
         let userTemp=[];
-        console.log(this.props.openHouse)
+        const user = this.props.user();
+
+        db.collection("User").doc(user.uid).get().then((data)=>
+        {
+
+            let houseURL = data.data()["houseURL"];
+            let AvatarURL = data.data()["avatar"];
+
+            this.setState({houseURL: houseURL, avatarURL: AvatarURL});
+        })
+
         db.collection('house').get().then((result) =>
         {
             result.forEach((doc, i) => { userTemp.push(doc.id) })
@@ -111,21 +130,19 @@ class HouseView extends Component {
 
     render()
     {
-        //render is what will be called any time there is an update to the component
-        //only do things that are necessary here as it causes a performance hit
+
         const {classes} = this.props;
         const {comments} = this.state;
         console.log(comments)
-        //classes.styleSheetItem will give you the class from the style sheet
-        //className={classes.styleSheet} will assign a class to the style sheet to the component
+        const{ houseURL, avatarURL} = this.state;
 
         if(!this.state.doneGettingComs)
         {return(<div/>)}
 
         return(
-            <div className="App" style={{backgroundImage: background}}>
-                <header className="App-header" >
-                    <div className="header" style={{position: 'absolute', top: 0, width: '100%'}}>
+            <div className="peak" style={{ height: '100%' }}>
+                <div className="content-body">
+                    <div className="header">
 						<span className={classes.buttonStyle} onClick={() => this.props.switchPage('MainPage')}>
 							My Home
 									</span>
@@ -136,12 +153,55 @@ class HouseView extends Component {
 							Leaderboard
 									</span>
                     </div>
-                    <div style={{ marginTop: '10em'}}>
-                        <img src = "House URL HERE" />
-                        <img src = "Avata URL HERE"/>
+
+                    
+                    <div className="pictures-container">
+
+                        <div className="picture-container">
+                            <h4>
+                                House Picture
+							</h4>
+
+                            {
+                                isValid(this.state.houseURL) ?
+                                    <img className="profile_image" src={this.state.houseURL}></img>
+                                    :
+                                    <div className="picture-subcontainer">
+                                        <p>X</p>
+                                    </div>
+                            }
+
+                            
+                        </div>
+
+                        <div className="picture-container">
+
+                            <h4>
+                                My Picture
+							</h4>
+
+                            {
+
+                                isValid(this.state.avatarURL) ?
+                                    <img className="profile_image" src={this.state.avatarURL}></img>
+                                    :
+                                    <div className="picture-subcontainer">
+                                        <p>X</p>
+                                    </div>
+
+                            }
+
+
+
+
+                        </div>
+
+
                     </div>
-                    <Button style={{backgroundColor: 'white', marginTop: '5em'}} onClick={() => this.addLike}>
-                        Like this house
+
+
+                    <Button style={{ backgroundColor: 'white', marginTop: '5em' }} onClick={() => this.addLike}>
+                    Like this house
                     </Button>
                     <table>
                         <tr>
@@ -156,7 +216,7 @@ class HouseView extends Component {
                         </tr>
                         {comments}
                     </table>
-                </header>
+                </div>
             </div>
         )
     }
