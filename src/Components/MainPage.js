@@ -104,6 +104,7 @@ class MainPage extends Component
 
 	handleFileChange =(files) =>
 	{
+
 		let handleImage = new HandleImage(firebase);
 		this.setState({files: files, open: false})
 
@@ -116,12 +117,14 @@ class MainPage extends Component
 		storageRef.child(this.props.userID + (this.state.uploadingHouse ? 'house' : 'avatar')).getDownloadURL().then(result =>
 		{
 
-			if (this.state.uploadingHouse && !this.state.uploadingHouseAvatar)
+			if (this.state.uploadingHouse)
 				this.setState({"houseImageURL" : result});
-			else if (!this.state.uploadingHouse && this.state.uploadingHouseAvatar)
+			else if (!this.state.uploadingHouse)
 				this.setState({ "avatarImageURL": result });
 
 			this.updateFirebase();
+
+			this.props.switchPage("MainPage");
 		});
 	} 
 
