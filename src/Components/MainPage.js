@@ -105,7 +105,7 @@ class MainPage extends Component
 	handleFileChange =(files) =>
 	{
 		let handleImage = new HandleImage(firebase);
-		this.setState({files: files, open: false})
+		this.setState({files: files, open: false, dialogOpen: false})
 
 		this.state.uploadingHouse ?
 			handleImage.uploadImage(files[0], this.props.userID + 'house'):
