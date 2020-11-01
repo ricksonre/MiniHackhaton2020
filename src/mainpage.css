@@ -112,3 +112,9 @@ hr
 	height: 50vh;
 	margin-left: 7.5%;
 }
+
+.profile_image
+{
+	max-width: 20vh;
+	max-height: 20vh;
+}
