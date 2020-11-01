@@ -3,7 +3,7 @@
 {
 	background-color: #373a40;
 	width: 65%;
-	height: 110vh;
+	min-height: 100vh;
 	color: White;
 	margin-left: 17.5%;
 	margin-right: 17.5%;
