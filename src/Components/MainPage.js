@@ -144,6 +144,8 @@ class MainPage extends Component
 			}
 		);
 
+		this.componentDidMount()
+
 	}
 
 	render()
@@ -159,7 +161,7 @@ class MainPage extends Component
 				<DropzoneDialog
 					open={dialogOpen}
 					onSave={this.handleFileChange}
-					acceptedFiles={['image/jpeg']}
+					acceptedFiles={['image/jpeg', 'image/png']}
 					onClose={() => this.setState({dialogOpen: false})}
 					filesLimit={1}/>
 				<div className="content-body">

@@ -45,6 +45,7 @@ class HouseView extends Component
     }
     componentDidMount()
     {
+        this.setState({comments: []})
         const db = this.props.firebase.firestore();
         let comments = [];
         let housePic = [];
@@ -58,9 +59,16 @@ class HouseView extends Component
             this.setState({ userHouses: userTemp })
             db.collection("User").doc(this.props.openHouse).get().then((data) =>
             {
+                let houseURL;
+                let AvatarURL;
+                try{
+                    houseURL = data.data()["houseURL"];
+                    AvatarURL = data.data()["avatar"];
+                }
+                catch (e) {
+                    this.randomHouse();
+                }
 
-                let houseURL = data.data()["houseURL"];
-                let AvatarURL = data.data()["avatar"];
 
                 if (houseURL === undefined || AvatarURL === undefined)
                     this.randomHouse();
