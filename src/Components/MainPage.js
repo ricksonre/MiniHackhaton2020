@@ -57,6 +57,10 @@ class MainPage extends Component
 	{
 		let userTemp = [];
 		const db = this.props.firebase.firestore();
+		db.collection("User").doc(this.props.userID).get().then(result =>
+		{
+			this.setState({houseImageURL: result.data().houseURL, avatarImageURL: result.data().avatar})
+		})
 		db.collection('house').get().then((result) =>
 		{
 			result.forEach((doc, i) => { userTemp[i] = doc.id })
@@ -76,7 +80,7 @@ class MainPage extends Component
 	randomHouse = () =>
 	{
 		const houses = this.state.userHouses;
-		this.props.switchPage('HousePage');
+		this.props.switchPage('HouseView');
 		this.props.setHouseID(houses[Math.floor(Math.random() * houses.length)]);
 	}
 
@@ -100,14 +104,32 @@ class MainPage extends Component
 			handleImage.uploadImage(files[0], this.props.userID + 'avatar')
 
 		var storageRef = this.props.firebase.storage().ref();
-		storageRef.child(this.props.userID + ( this.state.uploadingHouse ? 'house' : 'avatar')).getDownloadURL()
-			.then(result =>
-			{
-				this.state.uploadingHouse ?
-					this.setState({houseImageURL: result}):
-					this.setState({avatarImageURL: result})
-			})
+
+		storageRef.child(this.props.userID + (this.state.uploadingHouse ? 'house' : 'avatar')).getDownloadURL().then(result =>
+		{this.state.uploadingHouse ?
+			this.setState({houseImageURL: result})
+		:
+			this.setState({avatarImageURL: result});
+			this.updateFirebase();
+		})
 		this.setState({uploadingAvatar: false, uploadingHouse: false})
+	}
+
+	updateFirebase = () =>
+	{
+		const db = this.props.firebase.firestore();
+		db.collection("house").doc(this.props.user.houseID).update(
+			{
+				imageURL: this.state.houseImageURL,
+			}
+		);
+		db.collection("User").doc(this.props.user.id).update(
+			{
+				houseURL: this.state.houseImageURL,
+				avatar: this.state.avatarImageURL,
+			}
+		);
+
 	}
 
 	render()

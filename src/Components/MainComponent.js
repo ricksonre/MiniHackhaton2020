@@ -6,7 +6,7 @@ import firebase, {initializeApp} from 'firebase';
 import MainPage from './MainPage';
 import MainPageAlt from "./MainPageAlt";
 import LogInPage from "./LogInPage";
-
+import HouseView from "./HouseView"
 
 
 
@@ -53,11 +53,10 @@ class MainComponent extends Component
 
 	componentDidMount() 
 	{
-		
 		if(this.user == undefined)
 			this.renderPage("LogInPage");
 		else
-			this.renderPage("MainPage");
+			this.renderPage("HouseView");
 
 	}
 	
@@ -84,6 +83,9 @@ class MainComponent extends Component
 				return;
 			case 'LogInPage':
 				this.setState({page: (<LogInPage provider={this.provider} firebase={firebase} user={this.userData} switchPage={this.renderPage}/>)});
+				return;
+			case 'HouseView':
+				this.setState({page: (<HouseView openHouse={this.state.openHouse} setHouseID={this.setHouseID} comments={[]} provider={this.provider} firebase={firebase} user={this.user} switchPage={this.renderPage}/>)});
 				return;
 			default:
 				this.setState({page: (<MainPage userID={this.user.uid} user={this.userData}  setHouseID={this.setHouseID} firebase={firebase} switchPage={this.renderPage}/>)});
