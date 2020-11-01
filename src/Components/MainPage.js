@@ -45,6 +45,14 @@ class MainPage extends Component
 		}
 	}
 
+	isValid(obj)
+	{
+		if(typeof obj == 'undefined' || obj==undefined || obj.length == 0)
+			return false;
+
+		return true;
+	}
+
 	componentDidMount()
 	{
 		let userTemp = [];
@@ -92,11 +100,11 @@ class MainPage extends Component
 		let handleImage = new HandleImage(firebase);
 		this.setState({files: files, open: false})
 		this.state.uploadingHouse ?
-			handleImage.uploadImage(files[0], this.props.userID + 'house')
-		:
+			handleImage.uploadImage(files[0], this.props.userID + 'house'):
 			handleImage.uploadImage(files[0], this.props.userID + 'avatar')
 
 		var storageRef = this.props.firebase.storage().ref();
+
 		storageRef.child(this.props.userID + (this.state.uploadingHouse ? 'house' : 'avatar')).getDownloadURL().then(result =>
 		{this.state.uploadingHouse ?
 			this.setState({houseImageURL: result})
@@ -129,8 +137,15 @@ class MainPage extends Component
 		const { classes, userHouse } = this.props;
 		const user = this.props.user();
 		const {dialogOpen} = this.state;
+		const { houseImageURL, avatarImageURL} = this.state;
+		
+		
+		if(this.isValid(this.state.avatarImageURL))
+		{
 
-		console.log(user)
+		}
+
+
 
 		return (
 			<div className="peak" style={{ height: '100%' }}>
@@ -167,9 +182,15 @@ class MainPage extends Component
 								House Picture
 							</h4>
 
-							<div className="picture-subcontainer" onClick={this.uploadHousePic}>
-								<p>Upload Picture</p>
-							</div>
+							{
+								this.isValid(this.state.houseImageURL) ?
+									<img src={this.state.avatarImageURL}></img>
+									:
+									<div className="picture-subcontainer" onClick={this.uploadHousePic}>
+										<p>Upload Picture</p>
+									</div>
+									
+							}
 
 						</div>
 							
@@ -179,9 +200,16 @@ class MainPage extends Component
 								My Picture
 							</h4>
 
-							<div className="picture-subcontainer" onClick={this.uploadUserPic}>
-								<p>Upload Picture</p>
-							</div>
+							{
+								this.isValid(this.state.avatarImageURL) ?
+									<img src={this.state.avatarImageURL}></img>
+									:
+									<div className="picture-subcontainer" onClick={this.uploadUserPic}>
+										<p>Upload Picture</p>
+									</div>
+							}
+
+							
 
 						</div>
 
