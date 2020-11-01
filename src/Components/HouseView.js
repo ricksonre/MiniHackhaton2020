@@ -61,7 +61,7 @@ class HouseView extends Component {
                 const db = this.props.firebase.firestore()
                 const res = db.collection("house").doc('ATwH5pTpJCNcXbUnazXZ').collection("Comments").add({
                     text: newComment,
-                    user: this.props.user.uid
+                    user: this.props.user.uid,
                 });
             }
             catch (e) {
