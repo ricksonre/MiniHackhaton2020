@@ -34,10 +34,10 @@ class HouseView extends Component {
         const db = this.props.firebase.firestore();
         let comments = [];
         let housePic = [];
-        db.collection("house").doc('ATwH5pTpJCNcXbUnazXZ').collection('comments').get().then((result) => {
+        db.collection("house").doc(this.props.openHouse).collection('Comments').get().then((result) => {
             result.forEach(doc => {
-                comments.push(<tr><h>doc.data().userName</h><p>doc.data().comment</p></tr>);
-                result.forEach(doc => {console.log(doc.data.Image)});
+                comments.push(<tr><h>{doc.data().user}</h><p>{doc.data().text}</p></tr>);
+                this.setState({comments: comments});
             })
         });
 
@@ -59,7 +59,7 @@ class HouseView extends Component {
         {
             try {
                 const db = this.props.firebase.firestore()
-                const res = db.collection("house").doc('ATwH5pTpJCNcXbUnazXZ').collection("Comments").add({
+                const res = db.collection("house").doc(this.props.openHouse).collection("Comments").add({
                     text: newComment,
                     user: this.props.user.uid,
                 });
@@ -79,8 +79,8 @@ class HouseView extends Component {
     {
         //render is what will be called any time there is an update to the component
         //only do things that are necessary here as it causes a performance hit
-        const {classes} = this.props
-        const {comments} = this.props.comments
+        const {classes} = this.props;
+        const {comments} = this.state;
         //classes.styleSheetItem will give you the class from the style sheet
         //className={classes.styleSheet} will assign a class to the style sheet to the component
 
@@ -99,14 +99,6 @@ class HouseView extends Component {
                         </form>
                         <br/>
                     </div>
-                        </tr>
-                        <tr>
-                            <h>Aedan</h>
-                            <p>Cool House</p>
-                        </tr>
-                        <tr>
-                            <h>Carter</h>
-                            <p>dumb house</p>
                         </tr>
                         {comments}
                     </table>
