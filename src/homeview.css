@@ -72,8 +72,8 @@ hr
 
 .description-box
 {
-	width: 85%;
-	height: 10ch;
+	width: 65%;
+	height: 2ch;
 	border-radius: 2em;
 	padding: 1em 4em 1em 1em;
 }
@@ -83,24 +83,24 @@ hr
  	width: 100%;
 }
 
-.description-container button
+.submit-button
 {
 	text-align: right;
-	border-radius: 1em;
+	border-radius: 0.5em;
 	box-shadow: 0 0 0 6px solid white;
 	padding: 0.25em 0.5em 0.25em 0.5em;
-	border: 2px solid #17181a;
-	float: right;
-	margin: 1em 1em 1em 1em;
+    margin: 1em 1em 1em 1em;
+    background-color: rgb(250, 250, 250);
+    font-size: large;
 }
 
-.description-container button:hover
+.submit-button:hover
 {
 	background-color: #bdbfc2;
 	cursor: pointer;
 }
 
-.description-container button:active
+.submit-button:active
 {
 	background-color: #818182;
 }
@@ -109,8 +109,8 @@ hr
 {
 	border-radius: 5em;
 	width: 85%;
-	background-color: #17181a;
-	height: 50vh;
+	background-color: #262729;
+	min-width: 50vh;
 	margin-left: 7.5%;
 }
 
