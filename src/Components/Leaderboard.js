@@ -67,7 +67,7 @@ class Leaderboard extends Component
         const db = this.props.firebase.firestore()
         db.collection('User').orderBy("candyCount", "desc").limit(4).get().then((result) =>
         {
-            result.forEach(doc => { users.push((<div className="comment"><h4>{doc.data().name}</h4><p>{doc.data().candyCount + " Candies!"}</p></div>)) });
+            result.forEach(doc => { users.push((<div onClick={() => this.props.setHouseID(doc.id)} className="comment"><h4>{doc.data().name}</h4><p>{doc.data().candyCount + " Candies!"}</p></div>)) });
             this.setState({ users: users });
         });
 
