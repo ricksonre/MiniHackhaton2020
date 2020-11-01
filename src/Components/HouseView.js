@@ -35,6 +35,7 @@ class HouseView extends Component {
             value: '',
             userHouses: null,
             doneGettingComs: false,
+            hasLiked: false,
         }
         //this.state is accessible with this.state.attribute
         //it is settable with this.setState({attribute: value})
@@ -119,6 +120,9 @@ class HouseView extends Component {
 
     addLike =()=>
     {
+        if(this.state.hasLiked)
+            return;
+
         const db = this.props.firebase.firestore();
         db.collection('User').doc(this.props.openHouse).get().then(result => {
             const likes = result.data().candyCount +1;
@@ -126,6 +130,7 @@ class HouseView extends Component {
                 candyCount: likes,
             })
         })
+        this.setState({hasLiked: true})
     }
 
     render()
@@ -159,7 +164,7 @@ class HouseView extends Component {
 
                         <div className="picture-container">
                             <h4>
-                                House Picture
+                                My House Picture
 							</h4>
 
                             {
@@ -177,7 +182,7 @@ class HouseView extends Component {
                         <div className="picture-container">
 
                             <h4>
-                                My Picture
+                                My Costume
 							</h4>
 
                             {
@@ -201,7 +206,7 @@ class HouseView extends Component {
 
 
                     <Button style={{ backgroundColor: 'white', marginTop: '5em' }} onClick={() => this.addLike}>
-                    Like this house
+                    Give this house a candy!
                     </Button>
                     <table>
                         <tr>
